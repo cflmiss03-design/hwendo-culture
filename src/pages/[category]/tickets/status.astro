@@ -1,0 +1,23 @@
+---
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import TicketPaymentStatus from "../../../components/TicketPaymentStatus.jsx";
+import { CATEGORIES } from "../../../config/categories.js";
+
+export async function getStaticPaths() {
+  return Object.keys(CATEGORIES).map((category) => ({ params: { category } }));
+}
+
+const { category } = Astro.params;
+const cat = CATEGORIES[category];
+---
+
+<BaseLayout
+  title={`Statut de l'achat de ticket – ${cat.label} – Festival Hwendo Culture`}
+  description="Vérifiez le statut de votre paiement de ticket."
+>
+  <main class="min-h-screen bg-slate-50 py-12 px-4 sm:px-6 lg:px-8">
+    <div class="mx-auto max-w-2xl">
+      <TicketPaymentStatus client:load />
+    </div>
+  </main>
+</BaseLayout>

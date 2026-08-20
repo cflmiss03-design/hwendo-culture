@@ -1,0 +1,391 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700;800;900&family=Fira+Code:wght@400;500;600;700&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ==========================================================================
+   PREMIUM GLOBAL STYLES
+   ========================================================================== */
+
+/* HTML & Body */
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  @apply bg-white text-slate-900 leading-relaxed;
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+/* Selection Premium */
+::selection {
+  @apply bg-primary-500 text-white;
+}
+
+::-moz-selection {
+  @apply bg-primary-500 text-white;
+}
+
+/* Scrollbar Premium */
+::-webkit-scrollbar {
+  @apply w-2 h-2;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-slate-100;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-primary-400 rounded-full;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-primary-500;
+}
+
+/* ========== Typography Components ========== */
+
+h1, h2, h3, h4, h5, h6 {
+  @apply font-heading font-bold tracking-tight;
+}
+
+h1 {
+  @apply text-5xl md:text-6xl leading-tight font-black;
+}
+
+h2 {
+  @apply text-4xl md:text-5xl leading-tight font-extrabold;
+}
+
+h3 {
+  @apply text-3xl md:text-4xl leading-snug font-bold;
+}
+
+h4 {
+  @apply text-2xl md:text-3xl leading-snug font-semibold;
+}
+
+h5 {
+  @apply text-xl md:text-2xl font-semibold;
+}
+
+h6 {
+  @apply text-lg md:text-xl font-semibold;
+}
+
+p {
+  @apply text-base leading-relaxed text-slate-700;
+}
+
+small {
+  @apply text-sm text-slate-600;
+}
+
+/* ========== Links ========== */
+
+a {
+  @apply text-primary-600 hover:text-primary-700 transition-colors duration-200;
+  text-decoration: none;
+}
+
+a:focus-visible {
+  @apply outline-2 outline-offset-2 outline-primary-500;
+}
+
+/* ========== Lists ========== */
+
+ul, ol {
+  @apply space-y-2;
+}
+
+li {
+  @apply text-slate-700;
+}
+
+/* ========== Buttons (Global Base) ========== */
+
+button, [role="button"] {
+  @apply transition-all duration-200 ease-out;
+  @apply focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-500;
+}
+
+button:disabled {
+  @apply cursor-not-allowed opacity-60;
+}
+
+/* ========== Form Elements ========== */
+
+input, textarea, select {
+  @apply font-sans text-base;
+  @apply bg-white border border-slate-200;
+  @apply rounded-lg transition-all duration-200;
+  @apply focus:outline-none focus:border-primary-500 focus:ring-4 focus:ring-primary-100;
+}
+
+input:disabled, textarea:disabled, select:disabled {
+  @apply bg-slate-50 text-slate-400 cursor-not-allowed;
+}
+
+textarea {
+  @apply resize-y;
+}
+
+select {
+  @apply appearance-none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3E%3Cpath stroke='%236B7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3E%3C/svg%3E");
+  background-position: right 0.5rem center;
+  background-repeat: no-repeat;
+  background-size: 1.5em 1.5em;
+  padding-right: 2.5rem;
+}
+
+/* ========== Code Blocks ========== */
+
+code {
+  @apply font-mono text-sm bg-slate-100 text-slate-900 px-1.5 py-0.5 rounded;
+}
+
+pre {
+  @apply bg-slate-900 text-slate-100 p-4 rounded-lg overflow-x-auto;
+}
+
+pre code {
+  @apply bg-transparent text-inherit px-0 py-0;
+}
+
+/* ========== Blockquotes ========== */
+
+blockquote {
+  @apply border-l-4 border-primary-500 pl-4 italic text-slate-700 my-4;
+}
+
+/* ========== Tables ========== */
+
+table {
+  @apply w-full border-collapse;
+}
+
+th {
+  @apply bg-slate-100 text-left px-4 py-3 font-semibold text-slate-900 border-b border-slate-200;
+}
+
+td {
+  @apply px-4 py-3 border-b border-slate-200;
+}
+
+tr:last-child td {
+  @apply border-b-0;
+}
+
+/* ========== HR ========== */
+
+hr {
+  @apply border-0 border-t border-slate-200 my-6;
+}
+
+/* ========== Container ========== */
+
+.container {
+  @apply mx-auto max-w-7xl px-4 sm:px-6 lg:px-8;
+}
+
+/* ========== Component Classes ========== */
+
+/* Card Base */
+.card {
+  @apply bg-white rounded-xl border border-slate-200 shadow-sm;
+  @apply transition-all duration-300 ease-out;
+}
+
+.card:hover {
+  @apply shadow-md border-slate-300;
+}
+
+.card.interactive {
+  @apply cursor-pointer hover:shadow-lg hover:border-primary-200;
+}
+
+/* Button Base Classes */
+.btn {
+  @apply inline-flex items-center justify-center gap-2;
+  @apply px-4 py-2 rounded-lg font-semibold;
+  @apply transition-all duration-200;
+  @apply focus-visible:outline-2 focus-visible:outline-offset-2;
+}
+
+.btn-primary {
+  @apply bg-primary-600 text-white;
+  @apply hover:bg-primary-700 active:scale-95;
+  @apply focus-visible:outline-primary-500;
+  @apply disabled:opacity-60 disabled:cursor-not-allowed;
+}
+
+.btn-secondary {
+  @apply bg-slate-100 text-slate-900;
+  @apply hover:bg-slate-200 active:scale-95;
+  @apply focus-visible:outline-slate-400;
+}
+
+.btn-outline {
+  @apply border-2 border-primary-600 text-primary-600;
+  @apply hover:bg-primary-50 active:scale-95;
+  @apply focus-visible:outline-primary-500;
+}
+
+.btn-danger {
+  @apply bg-danger-600 text-white;
+  @apply hover:bg-danger-700 active:scale-95;
+  @apply focus-visible:outline-danger-500;
+}
+
+.btn-success {
+  @apply bg-success-600 text-white;
+  @apply hover:bg-success-700 active:scale-95;
+  @apply focus-visible:outline-success-500;
+}
+
+.btn-warning {
+  @apply bg-warning-600 text-white;
+  @apply hover:bg-warning-700 active:scale-95;
+  @apply focus-visible:outline-warning-500;
+}
+
+.btn-sm {
+  @apply px-3 py-1 text-sm;
+}
+
+.btn-lg {
+  @apply px-6 py-3 text-lg;
+}
+
+/* Badge */
+.badge {
+  @apply inline-flex items-center justify-center;
+  @apply px-3 py-1 rounded-full text-xs font-semibold;
+}
+
+.badge-primary {
+  @apply bg-primary-100 text-primary-900;
+}
+
+.badge-secondary {
+  @apply bg-secondary-100 text-secondary-900;
+}
+
+.badge-success {
+  @apply bg-success-50 text-success-700;
+}
+
+.badge-danger {
+  @apply bg-danger-50 text-danger-700;
+}
+
+.badge-warning {
+  @apply bg-warning-50 text-warning-700;
+}
+
+/* Alert */
+.alert {
+  @apply p-4 rounded-lg border-l-4 flex items-start gap-3;
+}
+
+.alert-primary {
+  @apply bg-primary-50 border-l-primary-500 text-primary-900;
+}
+
+.alert-success {
+  @apply bg-success-50 border-l-success-500 text-success-700;
+}
+
+.alert-danger {
+  @apply bg-danger-50 border-l-danger-500 text-danger-700;
+}
+
+.alert-warning {
+  @apply bg-warning-50 border-l-warning-500 text-warning-700;
+}
+
+/* Text Utilities */
+.text-gradient {
+  @apply bg-gradient-to-r from-primary-600 to-secondary-500;
+  @apply bg-clip-text text-transparent;
+}
+
+.text-balance {
+  text-wrap: balance;
+}
+
+/* Backdrop Blur */
+.backdrop-blur-xs {
+  backdrop-filter: blur(2px);
+}
+
+.backdrop-blur-xl {
+  backdrop-filter: blur(24px);
+}
+
+/* ========== Animation Utilities ========== */
+
+.animate-delay-100 {
+  animation-delay: 100ms;
+}
+
+.animate-delay-200 {
+  animation-delay: 200ms;
+}
+
+.animate-delay-300 {
+  animation-delay: 300ms;
+}
+
+.animate-delay-400 {
+  animation-delay: 400ms;
+}
+
+.animate-delay-500 {
+  animation-delay: 500ms;
+}
+
+.animate-delay-600 {
+  animation-delay: 600ms;
+}
+
+/* ========== Utility Classes ========== */
+
+.glass {
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.glass-dark {
+  background: rgba(15, 23, 42, 0.8);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.shimmer {
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  background-size: 200% 100%;
+  animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -100% 0;
+  }
+  100% {
+    background-position: 100% 0;
+  }
+}
+
+/* Responsive Typography */
+@media (max-width: 640px) {
+  h1 { @apply text-3xl; }
+  h2 { @apply text-2xl; }
+  h3 { @apply text-xl; }
+  h4 { @apply text-lg; }
+}

@@ -1,0 +1,55 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import OfficialResults from '../../components/OfficialResults.jsx';
+import { CATEGORIES } from "../../config/categories.js";
+
+export async function getStaticPaths() {
+  return Object.keys(CATEGORIES).map((category) => ({ params: { category } }));
+}
+
+const { category } = Astro.params;
+const cat = CATEGORIES[category];
+
+// Intitulés officiels du podium, propres à chaque catégorie — voir
+// OfficialResults.jsx (prop `rankTitles`).
+const RANK_TITLES_BY_CATEGORY = {
+  "miss-endo-culture": {
+    1: "MISS ENDO-CULTURE 2026",
+    2: "PREMIÈRE DAUPHINE",
+    3: "DEUXIÈME DAUPHINE",
+  },
+  "top-modele-afrique": {
+    1: "TOP MODÈLE AFRIQUE 2026",
+    2: "1er DAUPHIN / DAUPHINE",
+    3: "2e DAUPHIN / DAUPHINE",
+  },
+  "jeune-createur": {
+    1: "JEUNE CRÉATEUR DE L'ANNÉE 2026",
+    2: "2e PLACE",
+    3: "3e PLACE",
+  },
+};
+
+const title = `Résultats Officiels – ${cat.label} – Festival Hwendo Culture 2026`;
+const description = `Découvrez le classement officiel et les résultats détaillés par épreuve de la catégorie ${cat.label}, Festival Hwendo Culture 2026.`;
+const keywords = `résultats ${cat.label}, Festival Hwendo Culture, classement officiel, épreuves, palmarès`;
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  keywords={keywords}
+  ogTitle={title}
+  ogDescription={description}
+  ogType="website"
+  robots="index, follow"
+>
+  <main class="min-h-screen bg-gradient-primary">
+    <div class="px-4 pt-10 text-center sm:pt-14">
+      <p class="text-sm font-semibold uppercase tracking-widest text-white/70">{cat.label} — Festival Hwendo Culture 2026</p>
+      <h1 class="mt-2 font-heading text-4xl font-extrabold text-white sm:text-5xl">Résultats Officiels</h1>
+      <div class="mx-auto mt-4 h-1 w-20 rounded-full bg-gradient-secondary"></div>
+    </div>
+    <OfficialResults rankTitles={RANK_TITLES_BY_CATEGORY[category]} client:load />
+  </main>
+</BaseLayout>

@@ -1,0 +1,78 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Progress from "../../components/Progress.jsx";
+import CandidateGrid from "../../components/CandidateGrid.jsx";
+import TicketPurchase from "../../components/TicketPurchase.jsx";
+import { CATEGORIES } from "../../config/categories.js";
+
+import { candidates as topmodelCandidates } from "../../data/topmodel-candidates.js";
+import { candidates as createurCandidates } from "../../data/createur-candidates.js";
+import { candidates as missendoCandidates } from "../../data/missendo-candidates.js";
+
+const CANDIDATES_BY_CATEGORY = {
+  "top-modele-afrique": topmodelCandidates,
+  "jeune-createur": createurCandidates,
+  "miss-endo-culture": missendoCandidates,
+};
+
+export async function getStaticPaths() {
+  return Object.keys(CATEGORIES).map((category) => ({ params: { category } }));
+}
+
+const { category } = Astro.params;
+const cat = CATEGORIES[category];
+const candidates = CANDIDATES_BY_CATEGORY[category] || [];
+
+const title = `${cat.label} – Festival Hwendo Culture 2026`;
+const description = `Découvrez les candidats de la catégorie ${cat.label}${cat.subtitle ? ` (${cat.subtitle})` : ""} au Festival Hwendo Culture 2026. Votez en ligne pour votre favori.`;
+const keywords = `${cat.label}, Festival Hwendo Culture, ${cat.subtitle || ""}, concours Bénin, vote en ligne`;
+---
+
+<BaseLayout title={title} description={description} keywords={keywords} ogTitle={title} ogDescription={description} ogType="website">
+  <main class="min-h-screen bg-white">
+    <!-- Bandeau catégorie -->
+    <section class="relative overflow-hidden bg-gradient-primary py-16 text-white sm:py-20">
+      <div class="relative mx-auto max-w-4xl px-4 text-center sm:px-6">
+        {cat.logo && (
+          <img
+            src={cat.logo}
+            alt={cat.label}
+            class="mx-auto mb-4 h-20 w-20 rounded-full object-cover shadow-lg ring-4 ring-white/30"
+          />
+        )}
+        <p class="text-sm font-semibold uppercase tracking-widest text-white/70">Festival Hwendo Culture</p>
+        <h1 class="mt-2 font-heading text-4xl font-black sm:text-5xl">{cat.label}</h1>
+        {cat.subtitle && <p class="mt-2 text-lg text-white/90">{cat.subtitle}</p>}
+      </div>
+    </section>
+
+    <section id="tickets" class="px-4 py-16 sm:px-6 sm:py-20 lg:px-8">
+      <div class="mx-auto max-w-3xl text-center">
+        <p class="text-sm font-semibold uppercase tracking-widest text-primary-600">Tickets officiels</p>
+        <h2 class="mt-2 font-heading text-3xl font-black text-slate-900 sm:text-4xl">Achetez votre ticket</h2>
+        <p class="mx-auto mt-3 max-w-2xl text-slate-600">
+          Réservez votre place pour la catégorie {cat.label} du Festival Hwendo Culture.
+        </p>
+      </div>
+      <div class="mx-auto mt-10 max-w-5xl">
+        <div class="glass rounded-3xl border border-white/40 p-4 shadow-premium sm:p-10">
+          <TicketPurchase client:load />
+        </div>
+      </div>
+    </section>
+
+    <section id="candidates" class="px-4 py-8 sm:px-6 lg:px-8">
+      <div class="mx-auto max-w-7xl">
+        <Progress client:load />
+        <CandidateGrid
+          candidates={candidates}
+          category={category}
+          eyebrow="Découvrez nos candidats"
+          title={`${cat.label} en Compétition`}
+          intro={`Participez au vote et soutenez votre candidat préféré de la catégorie ${cat.label}.`}
+          client:load
+        />
+      </div>
+    </section>
+  </main>
+</BaseLayout>

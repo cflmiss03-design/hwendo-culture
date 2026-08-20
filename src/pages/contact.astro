@@ -1,0 +1,220 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const title = "Contactez le Festival Hwendo-Culture – Support & Informations";
+const description = "Contactez le Festival Hwendo-Culture pour toute question sur la Nuit de l'Élégance Africaine, le Concours Miss Endo-Culture, le Match de Gala, les partenariats ou les candidatures.";
+const keywords = "contact Festival Hwendo-Culture, support Miss Endo-Culture, Nuit de l'Élégance Africaine contact, informations Bénin";
+
+const SUBJECTS = [
+  "Informations générales",
+  "À propos du Festival Hwendo-Culture",
+  "Nuit de l'Élégance Africaine",
+  "Concours Miss Endo-Culture",
+  "Match de Gala",
+  "Partenariat / Sponsoring",
+  "Demande média / Presse",
+  "Candidature / Participation",
+  "Autre",
+];
+
+const structuredData = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "ContactPage",
+      "@id": "https://festivalhwendoculture.com/contact/#contactpage",
+      "name": "Contact - Festival Hwendo-Culture",
+      "url": "https://festivalhwendoculture.com/contact",
+      "isPartOf": { "@id": "https://festivalhwendoculture.com/#website" },
+    },
+    {
+      "@type": "Organization",
+      "@id": "https://festivalhwendoculture.com/contact/#organization",
+      "name": "Festival Hwendo-Culture",
+      "url": "https://festivalhwendoculture.com",
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "contactType": "Customer Service",
+        "telephone": "+229-01-60-74-44-15",
+        "areaServed": "BJ",
+        "availableLanguage": ["fr"],
+      },
+      "address": { "@type": "PostalAddress", "addressCountry": "BJ" },
+    },
+  ],
+};
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  keywords={keywords}
+  ogTitle={title}
+  ogDescription={description}
+  ogType="website"
+  structuredData={structuredData}
+>
+  <main class="min-h-screen bg-white">
+    <div class="py-12 px-4 sm:px-6 lg:px-8">
+    <div class="mx-auto max-w-4xl animate-fade-up">
+      <div class="mb-12 space-y-4 text-center">
+        <p class="text-sm font-semibold uppercase tracking-widest text-primary-600">Nous Écrire</p>
+        <h1 class="text-4xl md:text-5xl font-heading font-bold text-slate-900">
+          Contactez-nous
+        </h1>
+      </div>
+
+      <p class="text-slate-600 text-lg text-center leading-relaxed mb-12">
+        Vous souhaitez obtenir plus d'informations sur le <strong>Festival Hwendo-Culture</strong>, l'un de ses grands rendez-vous, devenir partenaire ou sponsor, ou simplement nous adresser un message ?
+        Que votre demande concerne le festival, la Nuit de l'Élégance Africaine, le Concours Miss Endo-Culture, le Match de Gala, les partenariats ou les relations médias, notre équipe reste à votre écoute.
+      </p>
+
+      <div class="grid md:grid-cols-2 gap-8">
+        <!-- Informations de contact -->
+        <div class="space-y-6 rounded-xl bg-slate-50 border border-slate-200 p-8">
+          <h2 class="text-2xl font-bold text-slate-900">Nos coordonnées</h2>
+          <p class="text-slate-600">
+            <strong class="text-slate-900">Organisation :</strong><br />
+            <span class="text-slate-600">Festival Hwendo-Culture</span>
+          </p>
+          <p class="text-slate-600">
+            <strong class="text-slate-900">Email :</strong><br />
+            <span class="text-slate-500 italic">À confirmer</span>
+          </p>
+          <p class="text-slate-600">
+            <strong class="text-slate-900">Téléphone / WhatsApp :</strong><br />
+            <a href="https://wa.me/2290160744415" class="text-primary-600 hover:text-primary-700">+229 01 60 74 44 15</a>
+          </p>
+          <p class="text-slate-600">
+            <strong class="text-slate-900">Réseaux sociaux :</strong><br />
+            <span class="text-primary-600 font-semibold">@festivalhwendoculture</span><br />
+            <span class="text-sm text-slate-500">Facebook • Instagram • TikTok</span>
+          </p>
+          <p class="text-slate-600">
+            <strong class="text-slate-900">Localisation :</strong><br />
+            <span class="text-slate-600">République du Bénin</span>
+          </p>
+          <div class="pt-4 border-t border-slate-200">
+            <p class="text-sm text-slate-600">
+              <strong class="text-slate-900">Heures de contact :</strong><br />
+              <span class="italic">À confirmer</span>
+            </p>
+          </div>
+        </div>
+
+        <!-- Formulaire -->
+        <form class="space-y-6 rounded-xl bg-white border border-slate-200 p-8 shadow-sm">
+          <div>
+            <label class="block text-slate-900 font-semibold mb-2">Nom complet</label>
+            <input
+              type="text"
+              name="name"
+              required
+              class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+              placeholder="Votre nom"
+            />
+          </div>
+
+          <div>
+            <label class="block text-slate-900 font-semibold mb-2">Email</label>
+            <input
+              type="email"
+              name="email"
+              required
+              class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+              placeholder="votre.email@exemple.com"
+            />
+          </div>
+
+          <div>
+            <label class="block text-slate-900 font-semibold mb-2">Téléphone</label>
+            <input
+              type="tel"
+              name="phone"
+              class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+              placeholder="+229 XX XX XX XX"
+            />
+          </div>
+
+          <div>
+            <label class="block text-slate-900 font-semibold mb-2">Sujet</label>
+            <select
+              name="subject"
+              class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+            >
+              <option value="">Sélectionner un sujet</option>
+              {SUBJECTS.map((s) => <option value={s}>{s}</option>)}
+            </select>
+          </div>
+
+          <div>
+            <label class="block text-slate-900 font-semibold mb-2">Message</label>
+            <textarea
+              name="message"
+              required
+              rows="5"
+              class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent resize-none"
+              placeholder="Votre message..."
+            ></textarea>
+          </div>
+
+          <button
+            type="submit"
+            class="w-full bg-gradient-to-r from-primary-600 to-primary-700 text-white font-semibold px-6 py-3 rounded-lg hover:from-primary-700 hover:to-primary-800 transition-all duration-200"
+          >
+            Envoyer le message
+          </button>
+        </form>
+      </div>
+    </div>
+    </div>
+
+    <!-- Autres moyens de nous contacter (rouge, bandeau plein largeur) -->
+    <section class="relative z-0 overflow-hidden bg-gradient-to-br from-primary-800 to-primary-950 px-4 py-16 sm:px-6 sm:py-20 lg:px-8">
+      <div class="mx-auto max-w-4xl">
+        <h2 class="text-3xl font-bold text-white mb-8">Autres moyens de nous contacter</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div class="rounded-xl bg-white p-6 shadow-lg">
+            <div class="w-12 h-12 rounded-lg bg-primary-100 flex items-center justify-center mb-4">
+              <svg class="w-6 h-6 text-primary-600" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.67-.51-.173-.008-.371 0-.57 0-.198 0-.52.075-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.076 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421-7.403h-.004a9.87 9.87 0 00-5.031 1.378c-3.055 2.007-5.044 5.645-5.044 9.589 0 3.601 1.926 6.853 5.305 8.796 1.906 1.24 4.109 1.856 6.396 1.991.503.034 1.007.053 1.509.049 5.264-.15 9.776-3.764 11.218-8.885.793-2.855.922-5.985.385-8.995-.671-3.73-3.007-6.85-6.182-8.796-1.906-1.24-4.109-1.856-6.396-1.991-.503-.034-1.007-.053-1.509-.049zm3.1 10.033a4.26 4.26 0 01-.968-5.307 4.26 4.26 0 015.307.968 4.26 4.26 0 01-.968 5.307 4.26 4.26 0 01-5.307-.968z"/>
+              </svg>
+            </div>
+            <h3 class="font-bold text-slate-900 mb-2">WhatsApp</h3>
+            <p class="text-slate-600 text-sm mb-4">Pour une prise de contact rapide et directe.</p>
+            <a href="https://wa.me/2290160744415" class="text-primary-600 hover:text-primary-700 font-semibold text-sm">
+              Contacter via WhatsApp
+            </a>
+          </div>
+
+          <div class="rounded-xl bg-white p-6 shadow-lg">
+            <div class="w-12 h-12 rounded-lg bg-primary-100 flex items-center justify-center mb-4">
+              <svg class="w-6 h-6 text-primary-600" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8z"/>
+              </svg>
+            </div>
+            <h3 class="font-bold text-slate-900 mb-2">Réseaux sociaux</h3>
+            <p class="text-slate-600 text-sm mb-4">Suivez l'actualité, les annonces et les événements du festival.</p>
+            <p class="text-primary-600 font-semibold text-sm">
+              @festivalhwendoculture<br />
+              <span class="text-slate-500 font-normal">Facebook • Instagram • TikTok</span>
+            </p>
+          </div>
+
+          <div class="rounded-xl bg-white p-6 shadow-lg">
+            <div class="w-12 h-12 rounded-lg bg-primary-100 flex items-center justify-center mb-4">
+              <svg class="w-6 h-6 text-primary-600" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+              </svg>
+            </div>
+            <h3 class="font-bold text-slate-900 mb-2">Localisation</h3>
+            <p class="text-slate-600 text-sm mb-4">Le Festival Hwendo-Culture est une initiative béninoise.</p>
+            <p class="text-primary-600 hover:text-primary-700 font-semibold text-sm">
+              République du Bénin
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+</BaseLayout>

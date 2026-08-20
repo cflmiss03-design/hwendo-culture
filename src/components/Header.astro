@@ -1,0 +1,139 @@
+---
+// Header premium moderne — Festival Hwendo Culture (3 catégories partagent
+// ce même header ; les liens "spécifiques à une catégorie" pointent vers
+// l'accueil pour laisser le visiteur choisir la sienne).
+---
+
+<header class="sticky top-0 z-50 w-full bg-white/95 backdrop-blur-xl border-b border-slate-200/50 shadow-sm">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <div class="flex h-20 items-center justify-between">
+
+      <!-- Logo + Brand -->
+      <a
+        href="/"
+        class="group flex items-center gap-3 sm:gap-4 transition-all duration-300 hover:scale-[1.02]"
+      >
+        <span class="flex h-14 w-14 sm:h-16 sm:w-16 items-center justify-center overflow-hidden rounded-full bg-gradient-primary shadow-md">
+          <img
+            src="https://res.cloudinary.com/di21pnpda/image/upload/w_200,h_200,c_fill,g_auto,f_auto,q_auto/v1787160931/1784301411203.jpg_wivjld.jpg"
+            alt="Festival Hwendo-Culture"
+            class="h-full w-full object-cover"
+          />
+        </span>
+        <div class="flex flex-col">
+          <p class="font-heading font-extrabold text-slate-900 text-sm sm:text-xl leading-tight">
+            HWENDO-CULTURE
+          </p>
+          <p class="text-[10px] sm:text-xs text-slate-500 leading-none">
+            Festival
+          </p>
+        </div>
+      </a>
+
+      <!-- Desktop Navigation -->
+      <nav class="hidden md:flex items-center gap-1">
+        <a href="/" class="group relative px-4 py-2 text-sm font-medium text-slate-700 transition-colors hover:text-primary-600">
+          Accueil
+          <span class="absolute bottom-0 left-4 right-4 h-0.5 bg-primary-600 scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></span>
+        </a>
+        <a href="/#categories" class="group relative px-4 py-2 text-sm font-medium text-slate-700 transition-colors hover:text-primary-600">
+          Catégories
+          <span class="absolute bottom-0 left-4 right-4 h-0.5 bg-primary-600 scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></span>
+        </a>
+        <a href="/a-propos" class="group relative px-4 py-2 text-sm font-medium text-slate-700 transition-colors hover:text-primary-600">
+          À propos
+          <span class="absolute bottom-0 left-4 right-4 h-0.5 bg-primary-600 scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></span>
+        </a>
+        <a href="/contact" class="group relative px-4 py-2 text-sm font-medium text-slate-700 transition-colors hover:text-primary-600">
+          Contact
+          <span class="absolute bottom-0 left-4 right-4 h-0.5 bg-primary-600 scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></span>
+        </a>
+        <a href="/sponsoring" class="group relative px-4 py-2 text-sm font-medium text-slate-700 transition-colors hover:text-primary-600">
+          Partenariat
+          <span class="absolute bottom-0 left-4 right-4 h-0.5 bg-primary-600 scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></span>
+        </a>
+      </nav>
+
+      <!-- CTA Button + Mobile Menu Toggle -->
+      <div class="flex items-center gap-3">
+        <a href="/#categories" class="hidden sm:inline-flex items-center gap-2 px-5 py-2 rounded-lg bg-primary-600 text-white font-semibold hover:bg-primary-700 transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-500">
+          🗳️ Voter / Tickets
+        </a>
+        <button
+          id="mobile-menu-toggle"
+          class="md:hidden relative inline-flex h-10 w-10 items-center justify-center rounded-lg transition-colors hover:bg-slate-100 focus-visible:outline-2 focus-visible:outline-primary-500"
+          aria-label="Ouvrir le menu"
+        >
+          <svg class="h-6 w-6 text-slate-900 transition-transform duration-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Navigation -->
+    <div id="mobile-menu" class="hidden md:hidden overflow-hidden transition-all duration-300">
+      <nav class="flex flex-col gap-0 py-2">
+        <a href="/" class="px-4 py-3 text-sm font-medium text-slate-700 hover:text-primary-600 hover:bg-slate-50 transition-colors">
+          Accueil
+        </a>
+        <a href="/#categories" class="px-4 py-3 text-sm font-medium text-slate-700 hover:text-primary-600 hover:bg-slate-50 transition-colors">
+          Catégories
+        </a>
+        <a href="/a-propos" class="px-4 py-3 text-sm font-medium text-slate-700 hover:text-primary-600 hover:bg-slate-50 transition-colors">
+          À propos
+        </a>
+        <a href="/contact" class="px-4 py-3 text-sm font-medium text-slate-700 hover:text-primary-600 hover:bg-slate-50 transition-colors">
+          Contact
+        </a>
+        <a href="/sponsoring" class="px-4 py-3 text-sm font-medium text-slate-700 hover:text-primary-600 hover:bg-slate-50 transition-colors">
+          Partenariat
+        </a>
+        <a href="/#categories" class="mx-3 my-2 block px-4 py-2 rounded-lg bg-primary-600 text-white font-semibold text-center hover:bg-primary-700 transition-colors">
+          🗳️ Voter / Tickets
+        </a>
+      </nav>
+    </div>
+  </div>
+
+  <!-- Script for mobile menu toggle -->
+  <script is:inline>
+    document.addEventListener("DOMContentLoaded", () => {
+      const toggle = document.getElementById("mobile-menu-toggle");
+      const menu = document.getElementById("mobile-menu");
+
+      if (toggle && menu) {
+        toggle.addEventListener("click", () => {
+          const isHidden = menu.classList.contains("hidden");
+          if (isHidden) {
+            menu.classList.remove("hidden");
+            setTimeout(() => menu.classList.add("open"), 10);
+          } else {
+            menu.classList.remove("open");
+            setTimeout(() => menu.classList.add("hidden"), 300);
+          }
+        });
+
+        // Close menu when clicking links
+        menu.querySelectorAll("a").forEach(link => {
+          link.addEventListener("click", () => {
+            menu.classList.remove("open");
+            setTimeout(() => menu.classList.add("hidden"), 300);
+          });
+        });
+      }
+    });
+  </script>
+
+  <style>
+    #mobile-menu {
+      max-height: 0;
+      opacity: 0;
+    }
+
+    #mobile-menu.open {
+      max-height: 400px;
+      opacity: 1;
+    }
+  </style>
+</header>

@@ -1,0 +1,96 @@
+---
+import CandidatePage from '../../components/CandidatePage.jsx';
+import Progress from "../../components/Progress.jsx";
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { CATEGORIES } from "../../config/categories.js";
+
+import { candidates as topmodelCandidates } from "../../data/topmodel-candidates.js";
+import { candidates as createurCandidates } from "../../data/createur-candidates.js";
+import { candidates as missendoCandidates } from "../../data/missendo-candidates.js";
+
+// Une seule paire de fichiers ([category]/index.astro + [category]/[slug].astro)
+// sert les 3 catégories — voir src/config.ts pour comment le bon préfixe
+// d'API est résolu à partir de l'URL, sans avoir à tripler le code.
+// NB : le mapping candidats-par-catégorie est construit À L'INTÉRIEUR de
+// getStaticPaths() (pas via une const/fonction de niveau module) —
+// Astro extrait getStaticPaths dans une portée de build séparée qui ne
+// referme fiablement que sur les `import`, jamais sur d'autres
+// déclarations du module (vu en pratique : "is not defined" à
+// l'exécution, même pour une simple fonction).
+export async function getStaticPaths() {
+  const byCategory = {
+    "top-modele-afrique": topmodelCandidates,
+    "jeune-createur": createurCandidates,
+    "miss-endo-culture": missendoCandidates,
+  };
+  return Object.entries(byCategory).flatMap(([category, candidates]) =>
+    candidates.map((c) => ({ params: { category, slug: c.slug } }))
+  );
+}
+
+const { category, slug } = Astro.params;
+const cat = CATEGORIES[category];
+const CANDIDATES_BY_CATEGORY = {
+  "top-modele-afrique": topmodelCandidates,
+  "jeune-createur": createurCandidates,
+  "miss-endo-culture": missendoCandidates,
+};
+const candidate = CANDIDATES_BY_CATEGORY[category]?.find((c) => c.slug === slug);
+
+const candidateName = `${candidate.firstName} ${candidate.secondName || ""} ${candidate.lastName}`.trim();
+const candidateRegion = candidate.bio?.origin || "Bénin";
+const title = `${candidateName} – ${cat.label} – Festival Hwendo Culture 2026`;
+const description = `${candidateName} — candidat(e) ${cat.label} au Festival Hwendo Culture 2026. ${candidate.text || "Soutenez-le/la en ligne !"}`;
+const keywords = `${candidateName}, ${cat.label}, Festival Hwendo Culture, ${candidateRegion}, concours Bénin ${new Date().getFullYear()}`;
+const pageUrl = `https://festivalhwendoculture.com/${category}/${candidate.slug}`;
+
+const structuredData = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Person",
+      "@id": `${pageUrl}/#person`,
+      "name": candidateName,
+      "givenName": candidate.firstName,
+      "familyName": candidate.lastName,
+      "image": candidate.photoUrl,
+      "birthPlace": { "@type": "Place", "name": candidateRegion },
+      "description": description,
+      "jobTitle": `Candidat(e) ${cat.label} — Festival Hwendo Culture 2026`,
+      "url": pageUrl,
+    },
+    {
+      "@type": "Event",
+      "@id": `${pageUrl}/#event`,
+      "name": `Vote pour ${candidateName} — ${cat.label}`,
+      "description": `Vote en ligne pour ${candidateName} au Festival Hwendo Culture 2026, catégorie ${cat.label}.`,
+      "eventStatus": "EventScheduled",
+      "eventAttendanceMode": "OnlineEventAttendanceMode",
+      "url": pageUrl,
+      "performer": { "@type": "Person", "name": candidateName },
+    },
+  ],
+};
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  keywords={keywords}
+  ogTitle={title}
+  ogDescription={description}
+  ogImage={candidate.photoUrl || undefined}
+  ogType="profile"
+  twitterCard="summary_large_image"
+  robots="index, follow, max-image-preview:large"
+  structuredData={structuredData}
+>
+  <main class="min-h-screen bg-gray-50 pt-6 sm:pt-10 pb-12">
+    <div class="mx-auto max-w-7xl">
+      <CandidatePage candidate={candidate} category={category} client:load />
+      <section class="px-4 py-12">
+        <Progress client:load />
+      </section>
+    </div>
+  </main>
+</BaseLayout>

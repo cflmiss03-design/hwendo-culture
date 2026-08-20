@@ -1,0 +1,107 @@
+---
+import SocialIcons from './SocialIcons.astro';
+import SponsoringFooter from "./SponsoringFooter";
+---
+
+<div class="w-full">
+  <!-- FOOTER SPONSORING -->
+  <div class="w-full max-w-4xl mx-auto px-4 sm:px-6 mt-12 sm:mt-20">
+    <SponsoringFooter />
+  </div>
+
+  <!-- FOOTER PRINCIPAL -->
+  <footer class="bg-gradient-dark text-white mt-20 relative z-0 overflow-hidden">
+    
+    <!-- Décor subtil de fond -->
+    <div class="absolute inset-0 -z-10">
+      <div class="absolute top-0 right-0 w-96 h-96 bg-primary-500/5 rounded-full blur-3xl"></div>
+      <div class="absolute bottom-0 left-0 w-96 h-96 bg-secondary-500/5 rounded-full blur-3xl"></div>
+    </div>
+
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      
+      <!-- Section principale du footer -->
+      <div class="py-16 grid grid-cols-1 md:grid-cols-4 gap-8">
+        
+        <!-- Column 1: Brand -->
+        <div class="md:col-span-2 space-y-4">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-lg bg-primary-500 flex items-center justify-center overflow-hidden">
+              <img
+                src="https://res.cloudinary.com/di21pnpda/image/upload/w_100,h_100,c_fill,g_auto,f_auto,q_auto/v1787160931/1784301411203.jpg_wivjld.jpg"
+                alt="Festival Hwendo-Culture"
+                class="h-full w-full object-cover"
+              />
+            </div>
+            <h3 class="font-heading font-bold text-lg">Festival Hwendo-Culture</h3>
+          </div>
+          <p class="text-white/80 leading-relaxed max-w-sm">
+            Festival dédié à la valorisation, la sauvegarde et la transmission des cultures endogènes béninoises — à travers la Nuit de l'Élégance Africaine (TOP Modèle Afrique & Jeune Créateur), le Concours Miss Endo-Culture et le Match de Gala.
+          </p>
+          <p class="text-sm italic text-white/60">Nos racines sont notre avenir.</p>
+          <div class="flex gap-4 pt-2">
+            <SocialIcons />
+          </div>
+        </div>
+
+        <!-- Column 2: Navigation -->
+        <div class="space-y-4">
+          <h4 class="font-semibold text-white">Navigation</h4>
+          <nav class="flex flex-col gap-3">
+            <a href="/" class="text-white/80 hover:text-white transition-colors duration-200">Accueil</a>
+            <a href="/a-propos" class="text-white/80 hover:text-white transition-colors duration-200">À propos</a>
+            <a href="/contact" class="text-white/80 hover:text-white transition-colors duration-200">Contact</a>
+            <a href="/sponsoring" class="text-white/80 hover:text-white transition-colors duration-200">Partenariat</a>
+          </nav>
+        </div>
+
+        <!-- Column 3: Contact -->
+        <div class="space-y-4">
+          <h4 class="font-semibold text-white">Contact</h4>
+          <div class="space-y-3">
+            <a href="https://wa.me/2290160744415" class="flex items-center gap-2 text-white/80 hover:text-white transition-colors duration-200">
+              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.67-.51-.173-.008-.371 0-.57 0-.198 0-.52.075-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.076 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421-7.403h-.004a9.87 9.87 0 00-5.031 1.378c-3.055 2.007-5.044 5.645-5.044 9.589 0 3.601 1.926 6.853 5.305 8.796 1.906 1.24 4.109 1.856 6.396 1.991.503.034 1.007.053 1.509.049 5.264-.15 9.776-3.764 11.218-8.885.793-2.855.922-5.985.385-8.995-.671-3.73-3.007-6.85-6.182-8.796-1.906-1.24-4.109-1.856-6.396-1.991-.503-.034-1.007-.053-1.509-.049zm3.1 10.033a4.26 4.26 0 01-.968-5.307 4.26 4.26 0 015.307.968 4.26 4.26 0 01-.968 5.307 4.26 4.26 0 01-5.307-.968z"/>
+              </svg>
+              <span>+229 01 60 74 44 15</span>
+            </a>
+            <div class="flex items-center gap-2 text-white/80">
+              <svg class="w-5 h-5 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8z"/>
+              </svg>
+              <span>@festivalhwendoculture</span>
+            </div>
+            <div class="flex items-start gap-2 text-white/80">
+              <svg class="w-5 h-5 flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+              </svg>
+              <span>République du Bénin</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Divider -->
+      <div class="border-t border-white/10"></div>
+
+      <!-- Bottom Bar -->
+      <div class="py-8 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-white/70">
+        <p>&copy; {new Date().getFullYear()} Festival Hwendo Culture. Tous droits réservés.</p>
+        <p>
+          Développé par <span class="font-semibold text-white">Groupe CFL World</span>
+        </p>
+      </div>
+    </div>
+  </footer>
+</div>
+
+<style>
+.bg-gradient-primary {
+  background: linear-gradient(
+    135deg,
+    #D4AF37 0%,
+    #C9A227 45%,
+    #B8860B 100%
+  );
+}
+</style>

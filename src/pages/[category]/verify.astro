@@ -1,0 +1,24 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import TicketVerify from "../../components/TicketVerify.jsx";
+import { CATEGORIES } from "../../config/categories.js";
+
+export async function getStaticPaths() {
+  return Object.keys(CATEGORIES).map((category) => ({ params: { category } }));
+}
+
+const { category } = Astro.params;
+const cat = CATEGORIES[category];
+---
+
+<BaseLayout
+  title={`Vérification de ticket – ${cat.label} – Festival Hwendo Culture`}
+  description={`Vérifiez l'authenticité d'un ticket ${cat.label}.`}
+  robots="noindex,nofollow"
+>
+  <main class="min-h-screen bg-slate-50 py-16 px-4 sm:px-6 lg:px-8 flex items-center justify-center">
+    <div class="mx-auto max-w-lg w-full bg-white rounded-2xl shadow-lg border border-slate-200 p-8">
+      <TicketVerify client:load />
+    </div>
+  </main>
+</BaseLayout>

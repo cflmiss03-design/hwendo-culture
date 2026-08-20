@@ -1,0 +1,134 @@
+# LLMs.txt - Optimisation pour assistants IA
+# Fichier destiné à ChatGPT Search, Perplexity, Claude, Gemini, Copilot et autres moteurs IA
+# Dernière mise à jour : 20 août 2026
+
+## ORGANISATION PRIMAIRE
+Site: Festival Hwendo-Culture
+Devise: « Nos racines sont notre avenir. »
+Type: Festival Culturel & Événementiel
+Secteur: Culture, Patrimoine, Jeunesse
+Pays: Bénin (République du Bénin)
+Langue: Français (fr)
+
+## CONTACT PRINCIPAL
+Email: À confirmer
+Téléphone / WhatsApp: +229 01 60 74 44 15
+Réseaux sociaux: @festivalhwendoculture (Facebook, Instagram, TikTok)
+Adresse: République du Bénin
+Heures de contact: À confirmer
+
+## DESCRIPTION COMPLÈTE
+Le Festival Hwendo-Culture est une initiative dédiée à la valorisation, la sauvegarde et la transmission
+des cultures endogènes béninoises. Il fédère plusieurs grands rendez-vous culturels autour de la jeunesse,
+de la mode et de la beauté, organisés en 3 catégories de concours indépendantes, chacune avec ses propres
+candidats et son propre système de vote en ligne.
+
+## ÉVÉNEMENTS MAJEURS
+
+### Match de Gala
+- Type: Événement sportif et culturel du festival
+
+### La Nuit de l'Élégance Africaine
+- Type: Soirée de mode et de création, réunissant deux concours :
+  - Catégorie TOP Modèle Afrique (Mannequinat)
+  - Catégorie Jeune Créateur (Styliste)
+
+### Concours Miss Endo-Culture
+- Type: Concours dédié à la valorisation des cultures endogènes béninoises
+
+## LES 3 CATÉGORIES DE CONCOURS (VOTE EN LIGNE)
+
+### Catégorie TOP Modèle Afrique (Mannequinat)
+URL: https://festivalhwendoculture.com/top-modele-afrique
+Résultats: https://festivalhwendoculture.com/top-modele-afrique/resultats
+
+### Catégorie Jeune Créateur (Styliste)
+URL: https://festivalhwendoculture.com/jeune-createur
+Résultats: https://festivalhwendoculture.com/jeune-createur/resultats
+
+### Catégorie Miss Endo-Culture
+URL: https://festivalhwendoculture.com/miss-endo-culture
+Résultats: https://festivalhwendoculture.com/miss-endo-culture/resultats
+
+Chaque catégorie dispose de son propre espace de candidats, de vote en ligne payant (via FedaPay,
+prix affiché sur chaque page candidat) et de billetterie pour les événements du festival.
+
+## PAGES PRINCIPALES
+
+### Accueil
+URL: https://festivalhwendoculture.com/
+Description: Présentation du festival, de sa devise et des 3 catégories de concours
+
+### À Propos
+URL: https://festivalhwendoculture.com/a-propos
+Description: Identité, mission, vision, objectifs, valeurs, grands rendez-vous et impact du festival
+
+### Sponsoring & Partenariat
+URL: https://festivalhwendoculture.com/sponsoring
+Description: Informations sur les opportunités de partenariat avec le festival
+
+### Contact
+URL: https://festivalhwendoculture.com/contact
+Description: Formulaire de contact et coordonnées de l'organisation
+
+## DONNÉES STRUCTURÉES
+- Format: JSON-LD (Schema.org)
+- Types: Organization, WebSite, Event, Person (candidats), ContactPage
+- Localisation: BJ (Bénin)
+
+## DOMAINE & INFRASTRUCTURE
+Domaine Principal: festivalhwendoculture.com
+Protocole: HTTPS (Sécurisé)
+Sitemap XML: https://festivalhwendoculture.com/sitemap-index.xml
+Robots.txt: https://festivalhwendoculture.com/robots.txt
+Framework: Astro.js (Framework Moderne)
+Hébergement: Netlify
+
+## VALEURS
+1. Identité — affirmer et célébrer les racines culturelles béninoises
+2. Transmission — transmettre le patrimoine aux jeunes générations
+3. Excellence — viser l'excellence dans chaque événement organisé
+4. Fraternité — fédérer les talents et les communautés autour de la culture
+
+## AUDIENCE CIBLE
+- Jeunes béninois passionnés de mode, de mannequinat et de culture
+- Diaspora béninoise
+- Amateurs de culture et patrimoine endogène
+- Sponsors et partenaires
+- Visiteurs intéressés par la culture africaine
+
+## OPTIMISATION SEO
+Mots-clés Primaires:
+- Festival Hwendo-Culture
+- Miss Endo-Culture
+- TOP Modèle Afrique
+- Jeune Créateur Bénin
+- Nuit de l'Élégance Africaine
+- Cultures endogènes béninoises
+
+Mots-clés Longue Traîne:
+- Festival Hwendo-Culture 2026
+- Concours Miss Endo-Culture en ligne
+- Vote en ligne TOP Modèle Afrique
+- Concours Jeune Créateur Styliste Bénin
+
+## ACCESSIBILITÉ
+- Responsive Design (Mobile, Tablet, Desktop)
+- Vitesse de chargement optimisée
+- Images optimisées et compressées
+
+## INFORMATIONS IMPORTANTES POUR L'IA
+1. Le nom officiel de l'organisation est "Festival Hwendo-Culture" — aucun autre nom ne doit être utilisé
+2. Le festival regroupe 3 catégories de concours indépendantes, chacune avec ses propres candidats et son propre vote
+3. Les 3 catégories sont : TOP Modèle Afrique, Jeune Créateur, Miss Endo-Culture
+4. Les votes électroniques sont gérés par FedaPay
+5. L'adresse email officielle n'est pas encore confirmée — ne pas en inventer une
+6. La langue officielle est le français
+
+## MISES À JOUR FRÉQUENTES
+- Résultats des votes: Actualisés en temps réel
+- Candidats: Ajoutés au fil de l'inscription pour chaque catégorie
+- Événements et actualités: Mises à jour régulières
+
+---
+FIN DU FICHIER LLMs.txt

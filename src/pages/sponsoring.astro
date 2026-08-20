@@ -1,0 +1,159 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const title = "Sponsoring & Partenariat – Festival Hwendo-Culture";
+const description = "Devenez partenaire ou sponsor du Festival Hwendo-Culture : Nuit de l'Élégance Africaine, Concours Miss Endo-Culture, Match de Gala. Associez votre image à une initiative culturelle porteuse de sens.";
+const keywords = "sponsoring Festival Hwendo-Culture, partenariat culturel Bénin, sponsoring Miss Endo-Culture, collaboration Bénin";
+
+const structuredData = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": "https://festivalhwendoculture.com/sponsoring/#webpage",
+      "name": "Sponsoring & Partenariat",
+      "url": "https://festivalhwendoculture.com/sponsoring",
+      "isPartOf": { "@id": "https://festivalhwendoculture.com/#website" },
+    },
+    {
+      "@type": "Organization",
+      "@id": "https://festivalhwendoculture.com/sponsoring/#organization",
+      "name": "Festival Hwendo-Culture",
+      "url": "https://festivalhwendoculture.com",
+      "description": "Festival recherchant des partenaires pour soutenir la valorisation des cultures endogènes béninoises",
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "contactType": "Business Development",
+        "telephone": "+229-01-60-74-44-15",
+      },
+    },
+  ],
+};
+
+const AVANTAGES = [
+  { icon: "📣", color: "primary", title: "Visibilité", text: "Accès à un large public à travers la Nuit de l'Élégance Africaine, le Concours Miss Endo-Culture et le Match de Gala." },
+  { icon: "🤝", color: "primary", title: "Réseautage", text: "Connexions stratégiques avec les acteurs culturels, entrepreneurs et décideurs béninois." },
+  { icon: "🌍", color: "secondary", title: "Impact Culturel", text: "Contribuez à la préservation des cultures endogènes béninoises et à la formation de la jeunesse." },
+  { icon: "🎭", color: "secondary", title: "Soutien à la Jeunesse", text: "Alignez votre marque avec des valeurs de transmission et d'excellence auprès de la jeunesse béninoise." },
+  { icon: "🇧🇯", color: "primary", title: "Rayonnement", text: "Participez à la promotion du patrimoine béninois au niveau national et africain." },
+  { icon: "📈", color: "primary", title: "Exposition Médiatique", text: "Présence sur le site web, les réseaux sociaux et les événements du festival." },
+];
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  keywords={keywords}
+  ogTitle={title}
+  ogDescription={description}
+  ogType="website"
+  structuredData={structuredData}
+>
+  <main class="min-h-screen bg-white">
+    <!-- En-tête + intro (blanc) -->
+    <div class="py-12 px-4 sm:px-6 lg:px-8">
+      <div class="mx-auto max-w-5xl animate-fade-up">
+        <div class="mb-12 space-y-4 text-center">
+          <p class="text-sm font-semibold uppercase tracking-widest text-primary-600">Soyez Partenaire</p>
+          <h1 class="text-4xl md:text-5xl font-heading font-bold text-slate-900">
+            Partenariat & Sponsoring
+          </h1>
+          <p class="text-lg text-slate-600 max-w-2xl mx-auto">
+            Construisons ensemble l'avenir de notre patrimoine
+          </p>
+        </div>
+
+        <div class="space-y-4 text-center max-w-3xl mx-auto">
+          <p class="text-lg text-gray-700 leading-relaxed">
+            Hwendo-Culture ouvre ses portes aux entreprises, institutions, organisations, marques et acteurs qui souhaitent associer leur image à une initiative culturelle porteuse de sens.
+          </p>
+          <p class="text-lg text-gray-700 leading-relaxed">
+            Votre soutien permet de renforcer les actions de valorisation du patrimoine, d'offrir davantage d'opportunités aux jeunes talents et de faire rayonner la culture béninoise au-delà des frontières.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Pourquoi devenir partenaire (rouge) -->
+    <section class="relative z-0 overflow-hidden bg-gradient-to-br from-primary-800 to-primary-950 px-4 py-16 sm:px-6 sm:py-20 lg:px-8">
+      <div class="mx-auto max-w-5xl">
+        <h2 class="text-3xl font-bold text-white mb-8">Pourquoi Devenir Partenaire ?</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {AVANTAGES.map((a) => (
+            <div class="flex gap-4 rounded-2xl bg-white p-5 shadow-lg">
+              <div class="flex-shrink-0">
+                <div class:list={["w-12 h-12 rounded-lg text-white flex items-center justify-center font-bold text-lg", a.color === "primary" ? "bg-primary-600" : "bg-secondary-600"]}>
+                  {a.icon}
+                </div>
+              </div>
+              <div>
+                <h3 class="font-bold text-slate-900 text-lg mb-2">{a.title}</h3>
+                <p class="text-slate-600">{a.text}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Contact (rouge, nuance distincte) -->
+    <section class="relative z-0 overflow-hidden bg-primary-950 px-4 py-16 sm:px-6 sm:py-20 lg:px-8">
+      <div class="mx-auto max-w-5xl rounded-2xl bg-gradient-to-r from-secondary-600 to-secondary-800 text-white p-8 sm:p-12">
+        <h2 class="text-3xl font-bold mb-4">Intéressé par un Partenariat ?</h2>
+        <p class="text-lg mb-8 text-white/90">
+          Chaque partenariat est discuté sur mesure, selon vos objectifs et votre budget. Contactez-nous directement via WhatsApp pour en parler.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4">
+          <a
+            href="https://wa.me/2290160744415?text=Bonjour%2C%20je%20suis%20intéressé%20par%20un%20partenariat%20avec%20le%20Festival%20Hwendo-Culture"
+            class="inline-block bg-white text-secondary-700 font-semibold px-8 py-3 rounded-lg hover:bg-secondary-50 transition-colors"
+          >
+            Contacter via WhatsApp
+          </a>
+          <a
+            href="/contact"
+            class="inline-block bg-secondary-500 text-white font-semibold px-8 py-3 rounded-lg hover:bg-secondary-400 transition-colors"
+          >
+            Nous écrire
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ (blanc) -->
+    <div class="py-16 px-4 sm:px-6 lg:px-8">
+      <div class="mx-auto max-w-5xl">
+        <h2 class="text-3xl font-bold text-slate-900 mb-8 text-center">Questions Fréquemment Posées</h2>
+        <div class="space-y-4">
+          <div class="rounded-lg border border-slate-200 p-6">
+            <h3 class="font-bold text-slate-900 mb-2">Quels types de partenariat proposez-vous ?</h3>
+            <p class="text-slate-600">
+              Chaque partenariat est adapté au budget et aux objectifs du partenaire — contactez-nous pour en discuter.
+            </p>
+          </div>
+
+          <div class="rounded-lg border border-slate-200 p-6">
+            <h3 class="font-bold text-slate-900 mb-2">Quelle est la durée d'un partenariat ?</h3>
+            <p class="text-slate-600">
+              Les partenariats peuvent être annuels, renouvelables, ou limités à un événement spécifique (Nuit de l'Élégance Africaine, Concours Miss Endo-Culture, Match de Gala).
+            </p>
+          </div>
+
+          <div class="rounded-lg border border-slate-200 p-6">
+            <h3 class="font-bold text-slate-900 mb-2">Comment bénéficie-t-on de la visibilité médiatique ?</h3>
+            <p class="text-slate-600">
+              Votre marque peut apparaître sur le site web, les réseaux sociaux, les bannières d'événements et les supports promotionnels du festival — selon les termes convenus ensemble.
+            </p>
+          </div>
+
+          <div class="rounded-lg border border-slate-200 p-6">
+            <h3 class="font-bold text-slate-900 mb-2">Pouvez-vous proposer des partenariats flexibles ?</h3>
+            <p class="text-slate-600">
+              Oui ! Nous nous adaptons à vos besoins spécifiques. Contactez-nous pour discuter d'une formule personnalisée.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</BaseLayout>

@@ -1,0 +1,259 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const title = "À Propos du Festival Hwendo-Culture – Mission, Vision & Patrimoine Béninois";
+const description = "Hwendo-Culture est un festival dédié à la valorisation, la sauvegarde et la transmission des cultures endogènes béninoises, à travers la mode, les arts, le sport et la parole.";
+const keywords = "Festival Hwendo-Culture, cultures endogènes béninoises, patrimoine Dahomey, mission culturelle, jeunesse béninoise, identité culturelle";
+
+const OBJECTIFS = [
+  "Préserver et valoriser les cultures, traditions, savoirs et expressions endogènes béninoises",
+  "Transmettre notre patrimoine aux jeunes générations et encourager leur appropriation de l'histoire et des traditions",
+  "Révéler et accompagner les talents culturels, artistiques et créatifs du Bénin et d'Afrique",
+  "Créer des espaces d'expression où la jeunesse peut s'exprimer, apprendre, créer et partager",
+  "Promouvoir l'excellence dans les domaines de la culture, de la mode, des arts et du sport",
+  "Renforcer les liens culturels entre les communautés béninoises et africaines",
+  "Faire rayonner le patrimoine béninois au-delà des frontières et auprès des nouvelles générations",
+];
+
+const VALEURS = [
+  { title: "Identité", text: "Connaître nos racines pour mieux comprendre et affirmer qui nous sommes." },
+  { title: "Transmission", text: "Faire circuler les savoirs, les langues, les récits, les gestes et les traditions entre les générations." },
+  { title: "Excellence", text: "Donner aux talents culturels un cadre professionnel leur permettant de révéler leur potentiel et de rayonner." },
+  { title: "Fraternité", text: "Réunir les communautés autour d'une mémoire, de valeurs et d'un avenir communs." },
+];
+
+const IMPACT = [
+  "Préserver et faire connaître les cultures endogènes béninoises",
+  "Favoriser la transmission des savoirs et des traditions entre générations",
+  "Donner une place centrale à la jeunesse dans la sauvegarde du patrimoine",
+  "Offrir une visibilité aux talents culturels, artistiques et créatifs",
+  "Encourager l'expression de l'identité et la fierté culturelle",
+  "Créer des espaces de rencontre entre différentes communautés africaines",
+  "Valoriser la mode, les arts, le sport et les expressions culturelles comme vecteurs de transmission",
+  "Promouvoir l'excellence et le professionnalisme dans les initiatives culturelles",
+  "Faire découvrir le patrimoine béninois à un public plus large",
+  "Créer des opportunités pour les jeunes talents et les acteurs culturels",
+  "Contribuer à construire une culture vivante, capable de dialoguer avec les aspirations de la jeunesse contemporaine",
+];
+
+const structuredData = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "AboutPage",
+      "@id": "https://festivalhwendoculture.com/a-propos/#aboutpage",
+      "name": "À Propos - Festival Hwendo-Culture",
+      "url": "https://festivalhwendoculture.com/a-propos",
+      "isPartOf": { "@id": "https://festivalhwendoculture.com/#website" },
+    },
+  ],
+};
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  keywords={keywords}
+  ogTitle={title}
+  ogDescription={description}
+  ogType="website"
+  structuredData={structuredData}
+>
+  <main class="min-h-screen bg-white">
+
+    <!-- Identité + À Propos (blanc) -->
+    <section class="px-4 py-16 sm:px-6 sm:py-20 lg:px-8">
+      <div class="mx-auto max-w-4xl animate-fade-up">
+        <div class="mb-12 space-y-4 text-center">
+          <p class="text-sm font-semibold uppercase tracking-widest text-primary-600">Notre Identité</p>
+          <h1 class="text-4xl md:text-5xl font-heading font-bold text-slate-900">
+            Festival Hwendo-Culture
+          </h1>
+          <p class="text-lg italic text-slate-600 max-w-2xl mx-auto">
+            « Nos racines sont notre avenir. »
+          </p>
+        </div>
+
+        <div class="space-y-6">
+          <h2 class="text-3xl font-bold text-primary-700 mb-2">À Propos du Festival Hwendo-Culture</h2>
+          <p class="text-gray-700 text-lg leading-relaxed">
+            Hwendo-Culture est un festival dédié à la valorisation, à la sauvegarde et à la transmission des cultures endogènes béninoises. Pensé comme un espace de rencontre entre patrimoine, créativité et jeunesse, le festival transforme notre héritage culturel en une expérience vivante, accessible et tournée vers les générations futures.
+          </p>
+          <p class="text-gray-700 text-lg leading-relaxed">
+            À travers la mode, les arts, le sport, la parole et différentes initiatives culturelles, Hwendo-Culture crée un pont entre les traditions du Dahomey et les aspirations de la jeunesse africaine. Il met en lumière les talents, les savoirs, les expressions et les valeurs qui font la richesse du patrimoine béninois, tout en encourageant leur réappropriation et leur transmission.
+          </p>
+          <p class="text-gray-700 text-lg leading-relaxed">
+            Le festival s'articule autour de plusieurs grands rendez-vous, notamment le <strong>Match de Gala</strong>, la <strong>Nuit de l'Élégance Africaine</strong> et le <strong>Concours Miss Endo-Culture</strong>. Chacun de ces événements contribue, à sa manière, à faire vivre notre culture et à donner à la jeunesse un rôle actif dans sa préservation et sa réinvention.
+          </p>
+
+          <div class="mt-8 grid grid-cols-3 gap-4">
+            <div class="rounded-xl bg-primary-50 border border-primary-200 p-4 text-center">
+              <p class="text-2xl font-bold text-primary-600">2026</p>
+              <p class="text-sm text-slate-600">Édition actuelle</p>
+            </div>
+            <div class="rounded-xl bg-secondary-50 border border-secondary-200 p-4 text-center">
+              <p class="text-2xl font-bold text-secondary-600">3</p>
+              <p class="text-sm text-slate-600">Événements majeurs</p>
+            </div>
+            <div class="rounded-xl bg-primary-50 border border-primary-200 p-4 text-center">
+              <p class="text-2xl font-bold text-primary-600">19+</p>
+              <p class="text-sm text-slate-600">Talents en compétition</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Mission & Vision (rouge) -->
+    <section class="relative z-0 overflow-hidden bg-gradient-to-br from-primary-800 to-primary-950 px-4 py-16 sm:px-6 sm:py-20 lg:px-8">
+      <div class="mx-auto max-w-4xl grid gap-8 md:grid-cols-2">
+        <div class="rounded-2xl bg-white p-8 shadow-lg">
+          <h2 class="text-2xl font-bold text-primary-700 mb-4">Notre Mission</h2>
+          <p class="text-gray-700 leading-relaxed">
+            Promouvoir, préserver et assurer la transmission des cultures endogènes béninoises aux générations futures, en créant des espaces d'expression, de découverte, de partage et d'excellence où la jeunesse peut s'approprier son patrimoine et contribuer à le faire vivre.
+          </p>
+        </div>
+        <div class="rounded-2xl bg-white p-8 shadow-lg">
+          <h2 class="text-2xl font-bold text-primary-700 mb-4">Notre Vision</h2>
+          <p class="text-gray-700 leading-relaxed">
+            Faire de Hwendo-Culture une référence culturelle au Bénin et en Afrique, un mouvement où patrimoine, jeunesse et créativité se rencontrent pour construire une culture vivante, fière de ses racines et ouverte sur le monde. Nous voulons contribuer à une génération qui connaît son histoire, assume son identité, valorise ses traditions et possède les moyens de les faire rayonner avec modernité et excellence.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Nos Objectifs (blanc) -->
+    <section class="px-4 py-16 sm:px-6 sm:py-20 lg:px-8">
+      <div class="mx-auto max-w-4xl">
+        <h2 class="text-3xl font-bold text-slate-900 mb-8 text-center">Nos Objectifs</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {OBJECTIFS.map((obj) => (
+            <div class="rounded-xl bg-primary-50 border border-primary-200 p-6">
+              <div class="flex items-start gap-3">
+                <span class="text-2xl flex-shrink-0 mt-1 text-primary-600">✓</span>
+                <p class="text-slate-700">{obj}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Nos Valeurs (rouge) -->
+    <section class="relative z-0 overflow-hidden bg-gradient-to-br from-primary-800 to-primary-950 px-4 py-16 sm:px-6 sm:py-20 lg:px-8">
+      <div class="mx-auto max-w-4xl">
+        <h2 class="text-3xl font-bold text-white mb-8 text-center">Nos Valeurs</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+          {VALEURS.map((v) => (
+            <div class="rounded-2xl bg-white p-6 shadow-lg">
+              <h3 class="text-lg font-bold text-primary-700 mb-2">{v.title}</h3>
+              <p class="text-gray-700">{v.text}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Nos Grands Rendez-vous (blanc) -->
+    <section class="px-4 py-16 sm:px-6 sm:py-20 lg:px-8">
+      <div class="mx-auto max-w-4xl">
+        <h2 class="text-3xl font-bold text-slate-900 mb-8 text-center">Nos Grands Rendez-vous</h2>
+        <div class="space-y-6">
+          <div class="rounded-2xl border border-slate-200 p-8">
+            <h3 class="text-xl font-bold text-slate-900 mb-3">⚽ Match de Gala</h3>
+            <p class="text-gray-700 leading-relaxed">
+              Un moment de sport, de partage et de convivialité qui rassemble les générations autour d'une même passion et crée des liens au-delà des différences.
+            </p>
+          </div>
+          <div class="rounded-2xl border border-slate-200 p-8">
+            <h3 class="text-xl font-bold text-slate-900 mb-3">La Nuit de l'Élégance Africaine</h3>
+            <p class="text-gray-700 leading-relaxed mb-4">
+              Une grande soirée consacrée à la mode africaine, au mannequinat culturel et au génie créatif. Elle met notamment à l'honneur :
+            </p>
+            <ul class="space-y-3 text-gray-700">
+              <li class="flex items-start gap-2">
+                <span class="mt-1 flex-shrink-0 text-primary-600">•</span>
+                <span><strong>TOP Modèle-Mannequin Afrique</strong>, une compétition destinée aux mannequins féminins et masculins portant avec charisme, grâce et prestance des créations réalisées à partir de tissus traditionnels africains.</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="mt-1 flex-shrink-0 text-primary-600">•</span>
+                <span><strong>Concours des Stylistes &amp; Créateurs</strong>, qui récompense les créateurs et créatrices mettant à l'honneur les tissages traditionnels Kanvo, le Batik et les pagnes d'Afrique.</span>
+              </li>
+            </ul>
+          </div>
+          <div class="rounded-2xl border border-slate-200 p-8">
+            <h3 class="text-xl font-bold text-slate-900 mb-3">👑 Concours Miss Endo-Culture</h3>
+            <p class="text-gray-700 leading-relaxed">
+              Bien plus qu'un concours de beauté, Miss Endo-Culture est une aventure autour de la connaissance, de l'identité et de la transmission du patrimoine culturel béninois. Il offre à la jeunesse féminine un espace pour apprendre, valoriser son identité culturelle et porter avec fierté les richesses de son patrimoine.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Notre Impact (rouge) -->
+    <section class="relative z-0 overflow-hidden bg-gradient-to-br from-primary-800 to-primary-950 px-4 py-16 sm:px-6 sm:py-20 lg:px-8">
+      <div class="mx-auto max-w-4xl">
+        <h2 class="text-3xl font-bold text-white mb-6">Notre Impact</h2>
+        <p class="text-lg leading-relaxed text-white/90 mb-4">
+          À travers ses différentes initiatives, Hwendo-Culture contribue à :
+        </p>
+        <ul class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          {IMPACT.map((item) => (
+            <li class="flex items-start gap-3">
+              <span class="mt-0.5 flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-white text-xs font-bold text-primary-800">✓</span>
+              <span class="text-white/90">{item}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+
+    <!-- Devenez Partenaire (rouge, nuance plus sombre pour se distinguer d'Impact) -->
+    <section class="relative z-0 overflow-hidden bg-primary-950 px-4 py-16 sm:px-6 sm:py-20 lg:px-8">
+      <div class="mx-auto max-w-4xl rounded-2xl bg-gradient-to-br from-secondary-600 to-secondary-800 text-white p-8 sm:p-12">
+        <h2 class="text-3xl font-bold mb-2">Devenez Partenaire ou Sponsor</h2>
+        <p class="text-lg font-semibold text-white/90 mb-4">Construisons ensemble l'avenir de notre patrimoine</p>
+        <p class="text-lg mb-4 text-white/90">
+          Hwendo-Culture ouvre ses portes aux entreprises, institutions, organisations, marques et acteurs qui souhaitent associer leur image à une initiative culturelle porteuse de sens.
+        </p>
+        <p class="text-lg mb-6 text-white/90">
+          Votre soutien permet de renforcer les actions de valorisation du patrimoine, d'offrir davantage d'opportunités aux jeunes talents et de faire rayonner la culture béninoise au-delà des frontières. En devenant partenaire ou sponsor du Festival Hwendo-Culture, vous contribuez directement à une mission essentielle : préserver notre héritage tout en donnant à la jeunesse les moyens de le faire vivre.
+        </p>
+        <a href="/sponsoring" class="inline-block bg-white text-secondary-700 font-semibold px-8 py-3 rounded-lg hover:bg-secondary-50 transition-colors duration-200">
+          En savoir plus sur les partenariats
+        </a>
+      </div>
+    </section>
+
+    <!-- Contactez-nous (blanc) -->
+    <section class="px-4 py-16 sm:px-6 sm:py-20 lg:px-8">
+      <div class="mx-auto max-w-4xl rounded-2xl bg-slate-50 border border-slate-200 p-8">
+        <h2 class="text-3xl font-bold text-slate-900 mb-4">Contactez-nous</h2>
+        <div class="space-y-4 text-gray-700">
+          <p class="text-lg">
+            Vous souhaitez en savoir plus sur le Festival Hwendo-Culture, devenir partenaire ou collaborer à l'une de nos initiatives ? N'hésitez pas à nous contacter.
+          </p>
+          <div class="flex items-center gap-3">
+            <svg class="w-6 h-6 text-primary-600 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.67-.51-.173-.008-.371 0-.57 0-.198 0-.52.075-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.076 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421-7.403h-.004a9.87 9.87 0 00-5.031 1.378c-3.055 2.007-5.044 5.645-5.044 9.589 0 3.601 1.926 6.853 5.305 8.796 1.906 1.24 4.109 1.856 6.396 1.991.503.034 1.007.053 1.509.049 5.264-.15 9.776-3.764 11.218-8.885.793-2.855.922-5.985.385-8.995-.671-3.73-3.007-6.85-6.182-8.796-1.906-1.24-4.109-1.856-6.396-1.991-.503-.034-1.007-.053-1.509-.049zm3.1 10.033a4.26 4.26 0 01-.968-5.307 4.26 4.26 0 015.307.968 4.26 4.26 0 01-.968 5.307 4.26 4.26 0 01-5.307-.968z"/>
+            </svg>
+            <span class="text-lg">WhatsApp: <a href="https://wa.me/2290160744415" class="text-primary-600 hover:text-primary-700 font-semibold">+229 01 60 74 44 15</a></span>
+          </div>
+          <div class="flex items-center gap-3">
+            <svg class="w-6 h-6 text-primary-600 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8z"/>
+            </svg>
+            <span class="text-lg">Réseaux : <span class="text-primary-600 font-semibold">@festivalhwendoculture</span> (Facebook, Instagram, TikTok)</span>
+          </div>
+          <div class="flex items-start gap-3">
+            <svg class="w-6 h-6 text-primary-600 flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+            </svg>
+            <span class="text-lg">Adresse: République du Bénin</span>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+</BaseLayout>

@@ -1,0 +1,25 @@
+# Node
+node_modules/
+npm-debug.log
+yarn-error.log
+yarn.lock
+# package-lock.json est COMMIT volontairement (voir plus bas) : Cloudflare
+# Pages clone ce dépôt seul et lance npm install de façon isolée (pas
+# d'accès au node_modules hoisté du monorepo local) — un lockfile figé
+# garantit un build reproductible et évite de retomber sur un problème de
+# résolution déjà rencontré (autoprefixer) avec une install non verrouillée.
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# Build / Output
+dist/
+.netlify/
+.astro/
+
+# OS / IDE
+.DS_Store
+Thumbs.db
+.vscode/

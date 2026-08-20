@@ -1,0 +1,170 @@
+---
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import GlobalLoader from '../components/GlobalLoader.jsx';
+import '../styles/global.css';
+
+// Props
+interface Props {
+  title?: string;
+  description?: string;
+  keywords?: string;
+  author?: string;
+  ogTitle?: string;
+  ogDescription?: string;
+  ogImage?: string;
+  ogType?: 'website' | 'article' | 'profile';
+  twitterCard?: 'summary' | 'summary_large_image';
+  robots?: string;
+  canonical?: string;
+  structuredData?: any;
+}
+
+// Détection automatique des pages à ne pas indexer
+const currentPath = Astro.url.pathname;
+
+const autoRobots =
+  currentPath.startsWith('/manager') ||
+  currentPath.startsWith('/register')
+    ? 'noindex,nofollow,noarchive,nosnippet'
+    :'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1';
+
+const {
+  title = "Festival Hwendo-Culture 2026 – Nos racines sont notre avenir",
+  description = "Festival dédié à la valorisation, la sauvegarde et la transmission des cultures endogènes béninoises : Nuit de l'Élégance Africaine (TOP Modèle Afrique & Jeune Créateur), Concours Miss Endo-Culture et Match de Gala.",
+  keywords = "Festival Hwendo-Culture, TOP Modèle Afrique, Jeune Créateur, Miss Endo-Culture, Nuit de l'Élégance Africaine, Match de Gala, culture béninoise, cultures endogènes",
+  author = "Festival Hwendo-Culture",
+  ogTitle = title,
+  ogDescription = description,
+  // Logo officiel du festival, recadré au ratio Open Graph (1200x630) — les
+  // pages candidat écrasent déjà cette valeur par défaut avec leur propre photo.
+  ogImage = "https://res.cloudinary.com/di21pnpda/image/upload/w_1200,h_630,c_fill,g_auto,f_auto,q_auto/v1787160931/1784301411203.jpg_wivjld.jpg",
+  ogType = "website",
+  twitterCard = "summary_large_image",
+  robots = autoRobots,
+  canonical = new URL(Astro.url.pathname, Astro.site).toString(),
+  structuredData = null,
+} = Astro.props;
+
+// Données structurées par défaut (Organisation + WebSite)
+const defaultStructuredData = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://festivalhwendoculture.com/#organization",
+      "name": "Festival Hwendo-Culture",
+      "description": "Festival dédié à la valorisation, la sauvegarde et la transmission des cultures endogènes béninoises",
+      "url": "https://festivalhwendoculture.com",
+      "logo": "https://res.cloudinary.com/di21pnpda/image/upload/f_auto,q_auto/v1787160931/1784301411203.jpg_wivjld.jpg",
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "contactType": "Customer Service",
+        "telephone": "+2290160744415",
+        "areaServed": "BJ",
+        "availableLanguage": "fr"
+      },
+      "sameAs": [
+        "https://www.facebook.com/festivalhwendoculture",
+        "https://www.instagram.com/festivalhwendoculture",
+        "https://www.tiktok.com/@festivalhwendoculture"
+      ],
+      "address": {
+        "@type": "PostalAddress",
+        "addressCountry": "BJ"
+      }
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://festivalhwendoculture.com/#website",
+      "url": "https://festivalhwendoculture.com",
+      "name": "Festival Hwendo-Culture",
+      "description": title,
+      "inLanguage": "fr",
+      "publisher": {
+        "@id": "https://festivalhwendoculture.com/#organization"
+      }
+    }
+  ]
+};
+---
+
+<!DOCTYPE html>
+<html lang="fr" class="scroll-smooth">
+<head>
+  <!-- Meta fondamentales -->
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- Title et Description -->
+  <title>{title}</title>
+  <meta name="description" content={description} />
+  <meta name="keywords" content={keywords} />
+  <meta name="author" content={author} />
+
+  <!-- Canonical -->
+  <link rel="canonical" href={canonical} />
+
+  <!-- Robots SEO -->
+  <meta name="robots" content={robots} />
+  <meta name="googlebot" content={robots} />
+  <meta name="bingbot" content={robots} />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content={ogTitle} />
+  <meta property="og:description" content={ogDescription} />
+  <meta property="og:type" content={ogType} />
+  <meta property="og:url" content={canonical} />
+  <meta property="og:image" content={ogImage} />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:site_name" content="Festival Hwendo-Culture" />
+  <meta property="og:locale" content="fr_BJ" />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content={twitterCard} />
+  <meta name="twitter:title" content={ogTitle} />
+  <meta name="twitter:description" content={ogDescription} />
+  <meta name="twitter:image" content={ogImage} />
+
+  <!-- Sécurité & Performance -->
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
+  <meta name="theme-color" content="#7a1820" />
+
+  <!-- Mobile -->
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+
+  <!-- Favicons — logo officiel recadré en carré via Cloudinary -->
+  <link rel="icon" href="https://res.cloudinary.com/di21pnpda/image/upload/w_64,h_64,c_fill,g_auto,f_auto,q_auto/v1787160931/1784301411203.jpg_wivjld.jpg" type="image/jpeg" />
+  <link rel="apple-touch-icon" href="https://res.cloudinary.com/di21pnpda/image/upload/w_180,h_180,c_fill,g_auto,f_auto,q_auto/v1787160931/1784301411203.jpg_wivjld.jpg" />
+
+  <!-- Sitemap -->
+  <link rel="sitemap" type="application/xml" href="/sitemap-index.xml" />
+
+  <!-- Données structurées -->
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify(structuredData || defaultStructuredData)}
+  />
+</head>
+
+<body class="bg-gray-50 text-gray-900 antialiased">
+
+  <!-- Loader -->
+  <GlobalLoader client:load />
+
+  <!-- Header -->
+  <Header />
+
+  <!-- Contenu -->
+  <main class="min-h-screen">
+    <slot />
+  </main>
+
+  <!-- Footer -->
+  <Footer />
+
+</body>
+</html>

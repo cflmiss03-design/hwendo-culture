@@ -1,0 +1,86 @@
+# Robots.txt pour Festival Hwendo-Culture
+# Généré pour optimiser l'indexation par les moteurs de recherche et IA
+
+# Configuration par défaut pour tous les crawlers
+User-agent: *
+Allow: /
+Allow: /a-propos
+Allow: /contact
+Allow: /sponsoring
+Allow: /top-modele-afrique
+Allow: /jeune-createur
+Allow: /miss-endo-culture
+Allow: /_astro/
+Disallow: /manager/
+Disallow: /admin/
+Disallow: /register/
+Disallow: /api
+Disallow: /private
+Disallow: /.git
+Disallow: /node_modules
+
+# Crawl-delay et Request-rate
+Crawl-delay: 1
+Request-rate: 30/1m
+
+# Sitemap
+Sitemap: https://festivalhwendoculture.com/sitemap-index.xml
+
+# Google
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 0
+Request-rate: 40/1m
+
+# Bing
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 1
+Request-rate: 30/1m
+
+# Claude (Anthropic)
+User-agent: Claude-Web
+Allow: /
+
+# ChatGPT (OpenAI)
+User-agent: GPTBot
+Allow: /
+
+# Perplexity
+User-agent: PerplexityBot
+Allow: /
+
+# Copilot (Microsoft)
+User-agent: copilot
+Allow: /
+
+# Gemini (Google)
+User-agent: Gemini
+Allow: /
+
+# Apple Siri
+User-agent: Applebot
+Allow: /
+
+# DuckDuckGo
+User-agent: DuckDuckBot
+Allow: /
+
+# Yahoo
+User-agent: Slurp
+Allow: /
+
+# Yandex
+User-agent: YandexBot
+Allow: /
+
+# Baidu
+User-agent: Baiduspider
+Allow: /
+
+# Refus pour les bots agressifs
+User-agent: AhrefsBot
+User-agent: SemrushBot
+User-agent: MJ12bot
+User-agent: DotBot
+Disallow: /
