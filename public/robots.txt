@@ -24,7 +24,7 @@ Crawl-delay: 1
 Request-rate: 30/1m
 
 # Sitemap
-Sitemap: https://festivalhwendoculture.com/sitemap-index.xml
+Sitemap: https://hwendo-culture.site/sitemap-index.xml
 
 # Google
 User-agent: Googlebot

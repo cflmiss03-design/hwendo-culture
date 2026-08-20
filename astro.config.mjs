@@ -8,7 +8,7 @@ export default defineConfig({
   // L'URL de ton site — domaine provisoire, à mettre à jour une fois le vrai
   // nom de domaine du Festival Hwendo Culture choisi (voir aussi
   // server-votes/src/config/tenants.js et voteserver.js pour le CORS).
-  site: "https://festivalhwendoculture.com",
+  site: "https://hwendo-culture.site",
 
   // Port de dev distinct pour tourner en même temps que les autres sites
   // locaux (missculture: 4321, campusvoice: 4322).

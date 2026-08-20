@@ -23,9 +23,13 @@ Le build a été vérifié en isolation totale (sans accès au monorepo local ni
 
 ## Domaine
 
-Le domaine `festivalhwendoculture.com` utilisé dans `astro.config.mjs`
-(`site:`) et dans les métadonnées SEO est un **placeholder** — à mettre à
-jour une fois le vrai nom de domaine choisi et branché sur Cloudflare Pages.
+Le domaine officiel `hwendo-culture.site` a été acheté et est déjà utilisé
+dans `astro.config.mjs` (`site:`) et les métadonnées SEO. En attendant qu'il
+soit actif (propagation DNS / branchement Cloudflare Pages), le site tourne
+sur le sous-domaine temporaire `hwendo-culture.cflmiss03.workers.dev` — le
+backend (`server-votes`) autorise déjà les deux domaines en CORS. Aucune
+action nécessaire ici une fois `hwendo-culture.site` actif : il suffit de le
+brancher comme domaine personnalisé sur le projet Cloudflare Pages.
 
 ## Développement local
 

@@ -39,16 +39,16 @@ candidats et son propre système de vote en ligne.
 ## LES 3 CATÉGORIES DE CONCOURS (VOTE EN LIGNE)
 
 ### Catégorie TOP Modèle Afrique (Mannequinat)
-URL: https://festivalhwendoculture.com/top-modele-afrique
-Résultats: https://festivalhwendoculture.com/top-modele-afrique/resultats
+URL: https://hwendo-culture.site/top-modele-afrique
+Résultats: https://hwendo-culture.site/top-modele-afrique/resultats
 
 ### Catégorie Jeune Créateur (Styliste)
-URL: https://festivalhwendoculture.com/jeune-createur
-Résultats: https://festivalhwendoculture.com/jeune-createur/resultats
+URL: https://hwendo-culture.site/jeune-createur
+Résultats: https://hwendo-culture.site/jeune-createur/resultats
 
 ### Catégorie Miss Endo-Culture
-URL: https://festivalhwendoculture.com/miss-endo-culture
-Résultats: https://festivalhwendoculture.com/miss-endo-culture/resultats
+URL: https://hwendo-culture.site/miss-endo-culture
+Résultats: https://hwendo-culture.site/miss-endo-culture/resultats
 
 Chaque catégorie dispose de son propre espace de candidats, de vote en ligne payant (via FedaPay,
 prix affiché sur chaque page candidat) et de billetterie pour les événements du festival.
@@ -56,19 +56,19 @@ prix affiché sur chaque page candidat) et de billetterie pour les événements 
 ## PAGES PRINCIPALES
 
 ### Accueil
-URL: https://festivalhwendoculture.com/
+URL: https://hwendo-culture.site/
 Description: Présentation du festival, de sa devise et des 3 catégories de concours
 
 ### À Propos
-URL: https://festivalhwendoculture.com/a-propos
+URL: https://hwendo-culture.site/a-propos
 Description: Identité, mission, vision, objectifs, valeurs, grands rendez-vous et impact du festival
 
 ### Sponsoring & Partenariat
-URL: https://festivalhwendoculture.com/sponsoring
+URL: https://hwendo-culture.site/sponsoring
 Description: Informations sur les opportunités de partenariat avec le festival
 
 ### Contact
-URL: https://festivalhwendoculture.com/contact
+URL: https://hwendo-culture.site/contact
 Description: Formulaire de contact et coordonnées de l'organisation
 
 ## DONNÉES STRUCTURÉES
@@ -77,10 +77,10 @@ Description: Formulaire de contact et coordonnées de l'organisation
 - Localisation: BJ (Bénin)
 
 ## DOMAINE & INFRASTRUCTURE
-Domaine Principal: festivalhwendoculture.com
+Domaine Principal: hwendo-culture.site
 Protocole: HTTPS (Sécurisé)
-Sitemap XML: https://festivalhwendoculture.com/sitemap-index.xml
-Robots.txt: https://festivalhwendoculture.com/robots.txt
+Sitemap XML: https://hwendo-culture.site/sitemap-index.xml
+Robots.txt: https://hwendo-culture.site/robots.txt
 Framework: Astro.js (Framework Moderne)
 Hébergement: Netlify
 

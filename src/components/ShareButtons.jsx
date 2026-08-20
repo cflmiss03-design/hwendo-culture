@@ -2,7 +2,7 @@ import React from "react";
 import { getCategory } from "../config/categories.js";
 
 const SITE_ORIGIN =
-  typeof window !== "undefined" ? window.location.origin : "https://festivalhwendoculture.com";
+  typeof window !== "undefined" ? window.location.origin : "https://hwendo-culture.site";
 
 export default function ShareButtons({ candidate, category }) {
   const cat = getCategory(category);
