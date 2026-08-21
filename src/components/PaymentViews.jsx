@@ -105,7 +105,10 @@ export function CancelledView({
   message = (
     <>Le paiement a été <strong>annulé</strong>. Aucun montant n'a été débité. Vous pouvez reprendre votre vote.</>
   ),
-  primaryHref = "/#candidates",
+  // Renvoie directement vers FedaPay (pas vers notre page candidat) pour
+  // reprendre le même paiement mobile money rapidement, sans avoir à
+  // reformuler un nouveau vote depuis le site.
+  primaryHref = "https://process.fedapay.com/mobile-money",
   primaryLabel = "Reprendre le vote",
   secondaryHref = "/",
   secondaryLabel = "Retour à l'accueil",

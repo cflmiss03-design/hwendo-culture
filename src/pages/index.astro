@@ -137,7 +137,7 @@ const structuredData = {
          "s'échappent" de la section et sont peints derrière le fond blanc de
          la page entière au lieu de rester DANS la section (fond invisible
          constaté en test). -->
-    <section class="relative z-0 overflow-hidden py-20 text-white sm:py-28">
+    <section class="relative z-0 overflow-hidden py-12 text-white sm:py-20 lg:py-28">
       <!-- Fond "drapeau qui flotte" : un dégradé de base TOUJOURS visible
            (garantit qu'il n'y a jamais de fond blanc, même sans support
            d'animation) + 3 bandes de lumière/ombre diagonales qui balaient le
@@ -159,29 +159,29 @@ const structuredData = {
           <span class="relative inline-flex h-2 w-2 rounded-full bg-secondary-400"></span>
           Édition 2026
         </span>
-        <h1 class="mt-6 font-heading text-5xl font-black leading-tight text-balance sm:text-6xl lg:text-7xl animate-fade-up" style="animation-delay: 100ms;">
+        <h1 class="mt-5 font-heading text-4xl font-black leading-tight text-balance sm:mt-6 sm:text-6xl lg:text-7xl animate-fade-up" style="animation-delay: 100ms;">
           Festival Hwendo<span class="text-secondary-300">-Culture</span>
         </h1>
-        <p class="mx-auto mt-4 max-w-2xl font-heading text-xl italic text-secondary-200 sm:text-2xl animate-fade-up" style="animation-delay: 120ms;">
+        <p class="mx-auto mt-3 max-w-2xl font-heading text-lg italic text-secondary-200 sm:mt-4 sm:text-2xl animate-fade-up" style="animation-delay: 120ms;">
           « Nos racines sont notre avenir. »
         </p>
-        <p class="mx-auto mt-6 max-w-2xl text-lg text-white/90 sm:text-xl animate-fade-up" style="animation-delay: 150ms;">
+        <p class="mx-auto mt-4 max-w-2xl text-base text-white/90 sm:mt-6 sm:text-xl animate-fade-up" style="animation-delay: 150ms;">
           Un festival dédié à la valorisation, à la sauvegarde et à la transmission des cultures endogènes béninoises — à travers la mode, les arts, le sport et la parole.
         </p>
-        <div class="mt-10 flex flex-col items-center gap-3 sm:flex-row sm:justify-center animate-fade-up" style="animation-delay: 200ms;">
-          <a href="#categories" class="inline-flex items-center gap-2 rounded-lg bg-white px-8 py-4 font-bold text-primary-700 shadow-xl transition-all duration-200 hover:shadow-2xl active:scale-95">
+        <div class="mt-8 flex flex-col items-stretch gap-3 sm:mt-10 sm:flex-row sm:items-center sm:justify-center animate-fade-up" style="animation-delay: 200ms;">
+          <a href="#categories" class="inline-flex items-center justify-center gap-2 rounded-lg bg-white px-6 py-3.5 font-bold text-primary-700 shadow-xl transition-all duration-200 hover:shadow-2xl active:scale-95 sm:px-8 sm:py-4">
             Découvrir les 3 catégories <span>↓</span>
           </a>
-          <a href="/a-propos" class="inline-flex items-center gap-2 rounded-lg border border-white/30 bg-white/5 px-8 py-4 font-bold text-white backdrop-blur-sm transition-all duration-200 hover:bg-white/10">
+          <a href="/a-propos" class="inline-flex items-center justify-center gap-2 rounded-lg border border-white/30 bg-white/5 px-6 py-3.5 font-bold text-white backdrop-blur-sm transition-all duration-200 hover:bg-white/10 sm:px-8 sm:py-4">
             Découvrir le festival
           </a>
         </div>
 
-        <div class="mx-auto mt-14 grid max-w-lg grid-cols-3 gap-6 animate-fade-up" style="animation-delay: 250ms;">
+        <div class="mx-auto mt-10 grid max-w-lg grid-cols-3 gap-3 sm:mt-14 sm:gap-6 animate-fade-up" style="animation-delay: 250ms;">
           {STATS.map((stat) => (
             <div>
-              <p class="text-3xl font-black text-secondary-300 sm:text-4xl">{stat.value}</p>
-              <p class="mt-1 text-xs text-white/70 sm:text-sm">{stat.label}</p>
+              <p class="text-2xl font-black text-secondary-300 sm:text-3xl md:text-4xl">{stat.value}</p>
+              <p class="mt-1 text-[11px] leading-tight text-white/70 sm:text-xs md:text-sm">{stat.label}</p>
             </div>
           ))}
         </div>
