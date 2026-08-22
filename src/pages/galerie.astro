@@ -97,11 +97,11 @@ const MISS_ENDO_2025_PHOTOS = [
           </h2>
         </div>
 
-        <div class="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4">
+        <div class="gallery-grid grid grid-cols-1 gap-4 sm:grid-cols-3 md:grid-cols-4" data-gallery="festival">
           {GALLERY_PHOTOS.map(({ url, caption }, i) => (
             <button
               type="button"
-              class="gallery-card reveal group relative block aspect-[4/5] w-full overflow-hidden rounded-2xl bg-slate-800 text-left shadow-lg shadow-black/30"
+              class="gallery-card gallery-item reveal group relative block aspect-[4/5] w-full overflow-hidden rounded-2xl bg-slate-800 text-left shadow-lg shadow-black/30"
               style={`transition-delay: ${(i % 8) * 70}ms;`}
               data-full={url}
               data-caption={caption}
@@ -125,6 +125,18 @@ const MISS_ENDO_2025_PHOTOS = [
             </button>
           ))}
         </div>
+
+        <div class="mt-8 text-center sm:hidden">
+          <button
+            type="button"
+            class="gallery-toggle inline-flex items-center gap-2 rounded-lg border-2 border-secondary-500 px-6 py-3 font-bold text-secondary-400 transition-all duration-300 hover:bg-secondary-500 hover:text-white"
+            data-target="festival"
+            data-count={GALLERY_PHOTOS.length}
+          >
+            <span class="toggle-label">Voir tout ({GALLERY_PHOTOS.length} photos)</span>
+            <span class="toggle-icon transition-transform duration-300">▾</span>
+          </button>
+        </div>
       </div>
     </section>
 
@@ -138,11 +150,11 @@ const MISS_ENDO_2025_PHOTOS = [
           </h2>
         </div>
 
-        <div class="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4">
+        <div class="gallery-grid grid grid-cols-1 gap-4 sm:grid-cols-3 md:grid-cols-4" data-gallery="miss-endo">
           {MISS_ENDO_2025_PHOTOS.map(({ url, caption }, i) => (
             <button
               type="button"
-              class="gallery-card reveal group relative block aspect-[4/5] w-full overflow-hidden rounded-2xl bg-slate-800 text-left shadow-lg shadow-black/30"
+              class="gallery-card gallery-item reveal group relative block aspect-[4/5] w-full overflow-hidden rounded-2xl bg-slate-800 text-left shadow-lg shadow-black/30"
               style={`transition-delay: ${(i % 8) * 70}ms;`}
               data-full={url}
               data-caption={caption}
@@ -165,6 +177,18 @@ const MISS_ENDO_2025_PHOTOS = [
               </div>
             </button>
           ))}
+        </div>
+
+        <div class="mt-8 text-center sm:hidden">
+          <button
+            type="button"
+            class="gallery-toggle inline-flex items-center gap-2 rounded-lg border-2 border-secondary-500 px-6 py-3 font-bold text-secondary-400 transition-all duration-300 hover:bg-secondary-500 hover:text-white"
+            data-target="miss-endo"
+            data-count={MISS_ENDO_2025_PHOTOS.length}
+          >
+            <span class="toggle-label">Voir tout ({MISS_ENDO_2025_PHOTOS.length} photos)</span>
+            <span class="toggle-icon transition-transform duration-300">▾</span>
+          </button>
         </div>
       </div>
     </section>
@@ -203,6 +227,26 @@ const MISS_ENDO_2025_PHOTOS = [
     .reveal.is-visible {
       opacity: 1;
       transform: translateY(0);
+    }
+
+    /* Mobile uniquement : 1 seule photo par ligne, seules les 5 premières
+       sont visibles tant que la galerie n'est pas dépliée ; au clic sur
+       "Voir tout", la grille repasse en 2 colonnes et toutes les photos
+       apparaissent (voir le script plus bas pour le toggle .is-expanded). */
+    @media (max-width: 639px) {
+      .gallery-grid .gallery-item:nth-child(n + 6) {
+        display: none;
+      }
+      .gallery-grid.is-expanded {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+      .gallery-grid.is-expanded .gallery-item:nth-child(n + 6) {
+        display: block;
+      }
+    }
+
+    .toggle-icon.is-flipped {
+      transform: rotate(180deg);
     }
   </style>
 
@@ -245,6 +289,24 @@ const MISS_ENDO_2025_PHOTOS = [
     document.querySelectorAll(".gallery-card").forEach((card) => {
       card.addEventListener("click", () => {
         openLightbox(card.dataset.full, card.dataset.caption);
+      });
+    });
+
+    document.querySelectorAll(".gallery-toggle").forEach((btn) => {
+      const grid = document.querySelector(`.gallery-grid[data-gallery="${btn.dataset.target}"]`);
+      const label = btn.querySelector(".toggle-label");
+      const icon = btn.querySelector(".toggle-icon");
+      const count = btn.dataset.count;
+
+      btn.addEventListener("click", () => {
+        const expanded = grid.classList.toggle("is-expanded");
+        label.textContent = expanded ? "Voir moins" : `Voir tout (${count} photos)`;
+        icon.classList.toggle("is-flipped", expanded);
+        if (expanded) {
+          grid.querySelectorAll(".gallery-item:not(.is-visible)").forEach((el) => {
+            requestAnimationFrame(() => el.classList.add("is-visible"));
+          });
+        }
       });
     });
 
