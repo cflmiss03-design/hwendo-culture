@@ -40,41 +40,12 @@ const RENDEZVOUS = [
   },
 ];
 
-// Photos réelles du festival (Cloudinary). Un helper insère la transformation
-// (recadrage carré + format/qualité auto) directement dans l'URL fournie,
-// pour ne charger que des vignettes légères sur la grille — le clic ouvre
-// la photo en pleine résolution dans un nouvel onglet.
-function thumb(url) {
-  return url.replace("/upload/", "/upload/w_500,h_500,c_fill,g_auto,f_auto,q_auto/");
-}
-
-const GALLERY_PHOTOS = [
-  "https://res.cloudinary.com/di21pnpda/image/upload/v1787137015/WhatsApp_Image_2026-08-19_at_11.17.27_vicabt.jpg",
-  "https://res.cloudinary.com/di21pnpda/image/upload/v1787137017/WhatsApp_Image_2026-08-19_at_11.17.28_rf9m4h.jpg",
-  "https://res.cloudinary.com/di21pnpda/image/upload/v1787137016/WhatsApp_Image_2026-08-19_at_11.17.29_yb4see.jpg",
-  "https://res.cloudinary.com/di21pnpda/image/upload/v1787137019/WhatsApp_Image_2026-08-19_at_11.17.30_2_fnewrp.jpg",
-  "https://res.cloudinary.com/di21pnpda/image/upload/v1787137018/WhatsApp_Image_2026-08-19_at_11.17.30_1_kja2np.jpg",
-  "https://res.cloudinary.com/di21pnpda/image/upload/v1787137019/WhatsApp_Image_2026-08-19_at_11.17.30_ujkfhd.jpg",
-  "https://res.cloudinary.com/di21pnpda/image/upload/v1787137020/WhatsApp_Image_2026-08-19_at_11.17.43_anbcgs.jpg",
-  "https://res.cloudinary.com/di21pnpda/image/upload/v1787137020/WhatsApp_Image_2026-08-19_at_11.17.32_npo4wu.jpg",
-  "https://res.cloudinary.com/di21pnpda/image/upload/v1787137021/WhatsApp_Image_2026-08-19_at_11.17.31_vsvvuz.jpg",
-  "https://res.cloudinary.com/di21pnpda/image/upload/v1787137021/WhatsApp_Image_2026-08-19_at_11.17.44_1_oqeuwz.jpg",
-  "https://res.cloudinary.com/di21pnpda/image/upload/v1787137025/WhatsApp_Image_2026-08-19_at_11.18.10_1_xxwsb1.jpg",
-  "https://res.cloudinary.com/di21pnpda/image/upload/v1787137024/WhatsApp_Image_2026-08-19_at_11.18.09_yh13up.jpg",
-  "https://res.cloudinary.com/di21pnpda/image/upload/v1787137028/WhatsApp_Image_2026-08-19_at_11.18.14_1_zbosgu.jpg",
-  "https://res.cloudinary.com/di21pnpda/image/upload/v1787137031/WhatsApp_Image_2026-08-19_at_11.18.16_2_zaotbv.jpg",
-  "https://res.cloudinary.com/di21pnpda/image/upload/v1787137025/WhatsApp_Image_2026-08-19_at_11.18.10_2_osrqjk.jpg",
-  "https://res.cloudinary.com/di21pnpda/image/upload/v1787137030/WhatsApp_Image_2026-08-19_at_11.18.16_1_vkai61.jpg",
-];
-
-const MISS_ENDO_2025_PHOTOS = [
-  "https://res.cloudinary.com/di21pnpda/image/upload/v1787137020/OP4A0547_1_1.jpg_feokoa.jpg",
-  "https://res.cloudinary.com/di21pnpda/image/upload/v1787137019/OP4A0559_1_1.jpg_bcmzuh.jpg",
-  "https://res.cloudinary.com/di21pnpda/image/upload/v1787137010/OP4A0543_1_1.jpg_uqxskw.jpg",
-  "https://res.cloudinary.com/di21pnpda/image/upload/v1787137013/OP4A0536_1_1.jpg_q0sxmh.jpg",
-  "https://res.cloudinary.com/di21pnpda/image/upload/v1787137006/OP4A0538_1_1.jpg_o3a3wm.jpg",
-  "https://res.cloudinary.com/di21pnpda/image/upload/v1787137005/OP4A0539_1_1.jpg_tfvys2.jpg",
-  "https://res.cloudinary.com/di21pnpda/image/upload/v1787136998/OP4A0537_1_1.jpg_ne3iue.jpg",
+// Aperçu (3 photos) de la galerie complète — voir /galerie pour l'ensemble
+// des clichés du festival avec légendes, animations et visionneuse.
+const GALLERY_PREVIEW = [
+  "https://res.cloudinary.com/di21pnpda/image/upload/w_500,h_500,c_fill,g_auto,f_auto,q_auto/v1787137015/WhatsApp_Image_2026-08-19_at_11.17.27_vicabt.jpg",
+  "https://res.cloudinary.com/di21pnpda/image/upload/w_500,h_500,c_fill,g_auto,f_auto,q_auto/v1787137017/WhatsApp_Image_2026-08-19_at_11.17.28_rf9m4h.jpg",
+  "https://res.cloudinary.com/di21pnpda/image/upload/w_500,h_500,c_fill,g_auto,f_auto,q_auto/v1787137016/WhatsApp_Image_2026-08-19_at_11.17.29_yb4see.jpg",
 ];
 
 const VALEURS = [
@@ -259,55 +230,36 @@ const structuredData = {
       </div>
     </section>
 
-    <!-- Galerie — fond sombre pour faire ressortir les photos -->
+    <!-- Galerie — teaser, fond sombre pour faire ressortir les photos -->
     <section class="relative z-0 overflow-hidden bg-slate-950 px-4 py-16 sm:px-6 sm:py-20 lg:px-8">
       <div class="mx-auto max-w-6xl">
         <div class="mb-10 text-center">
           <p class="text-sm font-semibold uppercase tracking-widest text-secondary-400">En images</p>
           <h2 class="mt-2 font-heading text-3xl font-black text-white sm:text-4xl">Le Festival Hwendo-Culture</h2>
         </div>
-        <div class="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
-          {GALLERY_PHOTOS.map((url, i) => (
-            <a
-              href={url}
-              target="_blank"
-              rel="noopener noreferrer"
-              class="group block aspect-square overflow-hidden rounded-xl"
-              aria-label="Voir la photo en pleine résolution"
-            >
+
+        <div class="grid grid-cols-3 gap-3 sm:gap-4">
+          {GALLERY_PREVIEW.map((url) => (
+            <div class="aspect-square overflow-hidden rounded-xl">
               <img
-                src={thumb(url)}
+                src={url}
                 alt="Festival Hwendo-Culture"
-                class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
-                loading={i < 6 ? "eager" : "lazy"}
+                class="h-full w-full object-cover"
+                loading="eager"
               />
-            </a>
+            </div>
           ))}
         </div>
 
-        <div class="mt-16">
-          <div class="mb-8 text-center">
-            <p class="text-sm font-semibold uppercase tracking-widest text-secondary-400">Édition 2025</p>
-            <h3 class="mt-2 font-heading text-2xl font-black text-white sm:text-3xl">Remise des Prix — Miss Endo-Culture</h3>
-          </div>
-          <div class="grid grid-cols-2 gap-3 sm:grid-cols-4">
-            {MISS_ENDO_2025_PHOTOS.map((url) => (
-              <a
-                href={url}
-                target="_blank"
-                rel="noopener noreferrer"
-                class="group block aspect-square overflow-hidden rounded-xl"
-                aria-label="Voir la photo en pleine résolution"
-              >
-                <img
-                  src={thumb(url)}
-                  alt="Remise des prix 2025 — Miss Endo-Culture"
-                  class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
-                  loading="lazy"
-                />
-              </a>
-            ))}
-          </div>
+        <div class="mt-10 text-center">
+          <a
+            href="/galerie"
+            class="inline-flex items-center gap-2 rounded-lg bg-gradient-to-r from-secondary-600 to-secondary-500 px-8 py-4 font-bold text-white shadow-lg transition-all duration-300 hover:scale-[1.03] hover:shadow-2xl"
+          >
+            <span>📸</span>
+            <span>Voir toute la galerie</span>
+            <span>→</span>
+          </a>
         </div>
       </div>
     </section>

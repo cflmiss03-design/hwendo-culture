@@ -1,0 +1,259 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const title = "Galerie – Festival Hwendo-Culture 2026";
+const description = "Revivez en images les moments forts du Festival Hwendo-Culture : Nuit de l'Élégance Africaine, TOP Modèle Afrique, Jeune Créateur et Concours Miss Endo-Culture.";
+const keywords = "galerie Festival Hwendo-Culture, photos Hwendo-Culture, Nuit de l'Élégance Africaine, TOP Modèle Afrique, Miss Endo-Culture images";
+
+// Insère une transformation Cloudinary (recadrage + format/qualité auto)
+// directement dans l'URL fournie, pour ne charger que des vignettes légères
+// sur la grille — le clic ouvre la photo en pleine résolution dans la
+// visionneuse (lightbox) plus bas sur cette page.
+function thumb(url) {
+  return url.replace("/upload/", "/upload/w_600,h_750,c_fill,g_auto,f_auto,q_auto/");
+}
+
+// Légendes thématiques (génériques, non spécifiques à une photo précise)
+// qui tournent sur l'ensemble des clichés du festival.
+const FESTIVAL_CAPTIONS = [
+  "Nuit de l'Élégance Africaine",
+  "TOP Modèle Afrique sur le podium",
+  "Créations Jeune Créateur",
+  "Miss Endo-Culture en habits traditionnels",
+  "Ambiance du Festival Hwendo-Culture",
+  "Le public en fête",
+  "Défilé de mode culturelle",
+  "Un moment de partage et de transmission",
+];
+
+const GALLERY_PHOTOS = [
+  "https://res.cloudinary.com/di21pnpda/image/upload/v1787137015/WhatsApp_Image_2026-08-19_at_11.17.27_vicabt.jpg",
+  "https://res.cloudinary.com/di21pnpda/image/upload/v1787137017/WhatsApp_Image_2026-08-19_at_11.17.28_rf9m4h.jpg",
+  "https://res.cloudinary.com/di21pnpda/image/upload/v1787137016/WhatsApp_Image_2026-08-19_at_11.17.29_yb4see.jpg",
+  "https://res.cloudinary.com/di21pnpda/image/upload/v1787137019/WhatsApp_Image_2026-08-19_at_11.17.30_2_fnewrp.jpg",
+  "https://res.cloudinary.com/di21pnpda/image/upload/v1787137018/WhatsApp_Image_2026-08-19_at_11.17.30_1_kja2np.jpg",
+  "https://res.cloudinary.com/di21pnpda/image/upload/v1787137019/WhatsApp_Image_2026-08-19_at_11.17.30_ujkfhd.jpg",
+  "https://res.cloudinary.com/di21pnpda/image/upload/v1787137020/WhatsApp_Image_2026-08-19_at_11.17.43_anbcgs.jpg",
+  "https://res.cloudinary.com/di21pnpda/image/upload/v1787137020/WhatsApp_Image_2026-08-19_at_11.17.32_npo4wu.jpg",
+  "https://res.cloudinary.com/di21pnpda/image/upload/v1787137021/WhatsApp_Image_2026-08-19_at_11.17.31_vsvvuz.jpg",
+  "https://res.cloudinary.com/di21pnpda/image/upload/v1787137021/WhatsApp_Image_2026-08-19_at_11.17.44_1_oqeuwz.jpg",
+  "https://res.cloudinary.com/di21pnpda/image/upload/v1787137025/WhatsApp_Image_2026-08-19_at_11.18.10_1_xxwsb1.jpg",
+  "https://res.cloudinary.com/di21pnpda/image/upload/v1787137024/WhatsApp_Image_2026-08-19_at_11.18.09_yh13up.jpg",
+  "https://res.cloudinary.com/di21pnpda/image/upload/v1787137028/WhatsApp_Image_2026-08-19_at_11.18.14_1_zbosgu.jpg",
+  "https://res.cloudinary.com/di21pnpda/image/upload/v1787137031/WhatsApp_Image_2026-08-19_at_11.18.16_2_zaotbv.jpg",
+  "https://res.cloudinary.com/di21pnpda/image/upload/v1787137025/WhatsApp_Image_2026-08-19_at_11.18.10_2_osrqjk.jpg",
+  "https://res.cloudinary.com/di21pnpda/image/upload/v1787137030/WhatsApp_Image_2026-08-19_at_11.18.16_1_vkai61.jpg",
+].map((url, i) => ({ url, caption: FESTIVAL_CAPTIONS[i % FESTIVAL_CAPTIONS.length] }));
+
+const MISS_ENDO_CAPTIONS = [
+  "Remise des prix — Édition 2025",
+  "Miss Endo-Culture 2025 à l'honneur",
+  "Une soirée de couronnement mémorable",
+  "Célébration du patrimoine culturel",
+];
+
+const MISS_ENDO_2025_PHOTOS = [
+  "https://res.cloudinary.com/di21pnpda/image/upload/v1787137020/OP4A0547_1_1.jpg_feokoa.jpg",
+  "https://res.cloudinary.com/di21pnpda/image/upload/v1787137019/OP4A0559_1_1.jpg_bcmzuh.jpg",
+  "https://res.cloudinary.com/di21pnpda/image/upload/v1787137010/OP4A0543_1_1.jpg_uqxskw.jpg",
+  "https://res.cloudinary.com/di21pnpda/image/upload/v1787137013/OP4A0536_1_1.jpg_q0sxmh.jpg",
+  "https://res.cloudinary.com/di21pnpda/image/upload/v1787137006/OP4A0538_1_1.jpg_o3a3wm.jpg",
+  "https://res.cloudinary.com/di21pnpda/image/upload/v1787137005/OP4A0539_1_1.jpg_tfvys2.jpg",
+  "https://res.cloudinary.com/di21pnpda/image/upload/v1787136998/OP4A0537_1_1.jpg_ne3iue.jpg",
+].map((url, i) => ({ url, caption: MISS_ENDO_CAPTIONS[i % MISS_ENDO_CAPTIONS.length] }));
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  keywords={keywords}
+  ogTitle={title}
+  ogDescription={description}
+  ogType="website"
+>
+  <main class="min-h-screen overflow-hidden bg-slate-950">
+    <!-- Hero -->
+    <section class="relative overflow-hidden px-4 py-20 text-center sm:py-28">
+      <div class="absolute inset-0 -z-10 bg-gradient-to-br from-primary-800 via-primary-700 to-secondary-700"></div>
+      <div class="absolute -top-24 -left-24 -z-10 h-72 w-72 rounded-full bg-secondary-400/20 blur-3xl"></div>
+      <div class="absolute -bottom-24 -right-24 -z-10 h-72 w-72 rounded-full bg-white/10 blur-3xl"></div>
+
+      <p class="reveal text-sm font-semibold uppercase tracking-[0.3em] text-secondary-300">Festival Hwendo-Culture</p>
+      <h1 class="reveal mt-3 font-heading text-4xl font-black text-white sm:text-6xl" style="transition-delay: 80ms;">
+        Galerie
+      </h1>
+      <p class="reveal mx-auto mt-4 max-w-2xl text-base text-white/80 sm:text-lg" style="transition-delay: 160ms;">
+        Les couleurs, les scènes et les visages qui font vivre nos racines — revivez les temps forts du festival en images.
+      </p>
+    </section>
+
+    <!-- Galerie principale -->
+    <section class="relative px-4 py-16 sm:px-6 sm:py-20 lg:px-8">
+      <div class="mx-auto max-w-7xl">
+        <div class="mb-10 text-center">
+          <p class="reveal text-sm font-semibold uppercase tracking-widest text-secondary-400">En images</p>
+          <h2 class="reveal mt-2 font-heading text-3xl font-black text-white sm:text-4xl" style="transition-delay: 80ms;">
+            Le Festival Hwendo-Culture
+          </h2>
+        </div>
+
+        <div class="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4">
+          {GALLERY_PHOTOS.map(({ url, caption }, i) => (
+            <button
+              type="button"
+              class="gallery-card reveal group relative block aspect-[4/5] w-full overflow-hidden rounded-2xl bg-slate-800 text-left shadow-lg shadow-black/30"
+              style={`transition-delay: ${(i % 8) * 70}ms;`}
+              data-full={url}
+              data-caption={caption}
+              aria-label={`Agrandir : ${caption}`}
+            >
+              <img
+                src={thumb(url)}
+                alt={caption}
+                class="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-110"
+                loading={i < 8 ? "eager" : "lazy"}
+              />
+              <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/85 via-black/10 to-transparent opacity-80 transition-opacity duration-300 group-hover:opacity-100"></div>
+              <div class="pointer-events-none absolute inset-x-0 bottom-0 translate-y-1 p-3 transition-transform duration-300 group-hover:translate-y-0 sm:p-4">
+                <p class="font-heading text-sm font-bold leading-tight text-white sm:text-base">{caption}</p>
+              </div>
+              <div class="pointer-events-none absolute right-3 top-3 flex h-9 w-9 items-center justify-center rounded-full bg-white/15 text-white opacity-0 backdrop-blur-md transition-opacity duration-300 group-hover:opacity-100">
+                <svg class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35M11 19a8 8 0 100-16 8 8 0 000 16zM11 8v6m-3-3h6" />
+                </svg>
+              </div>
+            </button>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Édition 2025 — Miss Endo-Culture -->
+    <section class="relative px-4 py-16 sm:px-6 sm:py-20 lg:px-8">
+      <div class="mx-auto max-w-7xl">
+        <div class="mb-10 text-center">
+          <p class="reveal text-sm font-semibold uppercase tracking-widest text-secondary-400">Édition 2025</p>
+          <h2 class="reveal mt-2 font-heading text-3xl font-black text-white sm:text-4xl" style="transition-delay: 80ms;">
+            Remise des Prix — Miss Endo-Culture
+          </h2>
+        </div>
+
+        <div class="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4">
+          {MISS_ENDO_2025_PHOTOS.map(({ url, caption }, i) => (
+            <button
+              type="button"
+              class="gallery-card reveal group relative block aspect-[4/5] w-full overflow-hidden rounded-2xl bg-slate-800 text-left shadow-lg shadow-black/30"
+              style={`transition-delay: ${(i % 8) * 70}ms;`}
+              data-full={url}
+              data-caption={caption}
+              aria-label={`Agrandir : ${caption}`}
+            >
+              <img
+                src={thumb(url)}
+                alt={caption}
+                class="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-110"
+                loading="lazy"
+              />
+              <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/85 via-black/10 to-transparent opacity-80 transition-opacity duration-300 group-hover:opacity-100"></div>
+              <div class="pointer-events-none absolute inset-x-0 bottom-0 translate-y-1 p-3 transition-transform duration-300 group-hover:translate-y-0 sm:p-4">
+                <p class="font-heading text-sm font-bold leading-tight text-white sm:text-base">{caption}</p>
+              </div>
+              <div class="pointer-events-none absolute right-3 top-3 flex h-9 w-9 items-center justify-center rounded-full bg-white/15 text-white opacity-0 backdrop-blur-md transition-opacity duration-300 group-hover:opacity-100">
+                <svg class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35M11 19a8 8 0 100-16 8 8 0 000 16zM11 8v6m-3-3h6" />
+                </svg>
+              </div>
+            </button>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Lightbox -->
+    <div
+      id="lightbox"
+      class="fixed inset-0 z-[999] hidden items-center justify-center bg-black/90 p-4 backdrop-blur-sm"
+      role="dialog"
+      aria-modal="true"
+      aria-label="Photo en grand format"
+    >
+      <button
+        type="button"
+        id="lightbox-close"
+        class="absolute right-4 top-4 flex h-11 w-11 items-center justify-center rounded-full bg-white/10 text-white transition-colors hover:bg-white/20 sm:right-6 sm:top-6"
+        aria-label="Fermer"
+      >
+        <svg class="h-6 w-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+      <figure class="flex max-h-full max-w-4xl flex-col items-center">
+        <img id="lightbox-img" src="" alt="" class="max-h-[80vh] w-auto rounded-xl object-contain shadow-2xl" />
+        <figcaption id="lightbox-caption" class="mt-4 text-center font-heading text-lg font-bold text-white"></figcaption>
+      </figure>
+    </div>
+  </main>
+
+  <style>
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    }
+    .reveal.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+
+  <script>
+    const revealEls = document.querySelectorAll(".reveal");
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.1, rootMargin: "0px 0px -40px 0px" }
+    );
+    revealEls.forEach((el) => observer.observe(el));
+
+    const lightbox = document.getElementById("lightbox");
+    const lightboxImg = document.getElementById("lightbox-img");
+    const lightboxCaption = document.getElementById("lightbox-caption");
+    const closeBtn = document.getElementById("lightbox-close");
+
+    function openLightbox(url, caption) {
+      lightboxImg.src = url;
+      lightboxImg.alt = caption;
+      lightboxCaption.textContent = caption;
+      lightbox.classList.remove("hidden");
+      lightbox.classList.add("flex");
+      document.body.style.overflow = "hidden";
+    }
+
+    function closeLightbox() {
+      lightbox.classList.add("hidden");
+      lightbox.classList.remove("flex");
+      lightboxImg.src = "";
+      document.body.style.overflow = "";
+    }
+
+    document.querySelectorAll(".gallery-card").forEach((card) => {
+      card.addEventListener("click", () => {
+        openLightbox(card.dataset.full, card.dataset.caption);
+      });
+    });
+
+    closeBtn.addEventListener("click", closeLightbox);
+    lightbox.addEventListener("click", (e) => {
+      if (e.target === lightbox) closeLightbox();
+    });
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && !lightbox.classList.contains("hidden")) closeLightbox();
+    });
+  </script>
+</BaseLayout>
