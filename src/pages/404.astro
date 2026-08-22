@@ -1,0 +1,20 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ArticleFallback from '../components/ArticleFallback.jsx';
+
+// Cloudflare Pages sert automatiquement ce fichier (404.html une fois
+// buildé) pour toute URL qui ne correspond à aucun fichier statique réel.
+// Cas particulier géré par ArticleFallback.jsx : un article Actualité tout
+// juste publié n'a pas encore sa page statique (voir actualites/[slug].astro
+// — générée uniquement au build) ; en attendant le prochain rebuild
+// Cloudflare, on va chercher son contenu en direct auprès de l'API.
+// Toujours noindex : cette page ne doit jamais être celle que Google
+// indexe pour un article (c'est [slug].astro, une fois buildée, qui l'est).
+const title = "Page introuvable – Festival Hwendo-Culture";
+---
+
+<BaseLayout title={title} robots="noindex, follow">
+  <main class="min-h-screen bg-white">
+    <ArticleFallback client:load />
+  </main>
+</BaseLayout>
