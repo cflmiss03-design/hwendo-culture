@@ -14,8 +14,14 @@ export default defineConfig({
   // locaux (missculture: 4321, campusvoice: 4322).
   server: { port: 4323 },
 
-  // Préfixe pour les variables d'environnement
-  envPrefix: "VITE_",
+  // Préfixe pour les variables d'environnement (doit être imbriqué sous
+  // `vite:` — un `envPrefix` au niveau racine n'est pas une clé Astro
+  // reconnue et est silencieusement ignoré, ce qui fait retomber Astro sur
+  // son propre défaut (PUBLIC_ uniquement) et empêche VITE_API_BASE_URL
+  // d'être exposé côté client. Bug trouvé + corrigé le 2026-08-21.
+  vite: {
+    envPrefix: ["VITE_", "PUBLIC_"],
+  },
 
   // Intégrations Astro
   integrations: [
