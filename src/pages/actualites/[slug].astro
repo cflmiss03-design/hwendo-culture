@@ -1,0 +1,138 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ArticleShareButtons from '../../components/ArticleShareButtons.jsx';
+import { NEWS_API_BASE_URL } from '../../config';
+
+// Chaque article est une vraie page statique générée AU BUILD (contrairement
+// à une page unique en query string) : indexable normalement par Google,
+// URL canonique propre, contenu déjà présent dans le HTML sans dépendre de
+// JS. Comme le contenu est géré depuis le CMS après le build, un rebuild
+// est redéclenché à chaque écriture (voir backend-votes/src/routes/news.js
+// — triggerDeployHook) pour que les nouveaux articles/modifications
+// deviennent visibles.
+export async function getStaticPaths() {
+  const res = await fetch(`${NEWS_API_BASE_URL}/news?limit=200`);
+  if (!res.ok) return [];
+  const data = await res.json();
+  return data.items.map((item) => ({ params: { slug: item.slug } }));
+}
+
+const { slug } = Astro.params;
+const res = await fetch(`${NEWS_API_BASE_URL}/news/${slug}`);
+if (!res.ok) {
+  return Astro.redirect('/actualites', 302);
+}
+const { article, related } = await res.json();
+
+function formatDate(d) {
+  if (!d) return "";
+  return new Date(d).toLocaleDateString("fr-FR", { day: "numeric", month: "long", year: "numeric" });
+}
+
+const pageUrl = `https://hwendo-culture.site/actualites/${article.slug}`;
+const title = `${article.title} – Festival Hwendo-Culture`;
+const description = article.excerpt;
+
+const structuredData = {
+  "@context": "https://schema.org",
+  "@type": "NewsArticle",
+  "headline": article.title,
+  "description": article.excerpt,
+  "image": article.coverImage || undefined,
+  "datePublished": article.publishAt,
+  "dateModified": article.updatedAt,
+  "author": article.author ? { "@type": "Person", "name": article.author } : { "@type": "Organization", "name": "Festival Hwendo-Culture" },
+  "publisher": { "@type": "Organization", "name": "Festival Hwendo-Culture" },
+  "mainEntityOfPage": pageUrl,
+};
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  ogTitle={title}
+  ogDescription={description}
+  ogImage={article.coverImage || undefined}
+  ogType="article"
+  robots="index, follow, max-image-preview:large"
+  structuredData={structuredData}
+>
+  <main class="min-h-screen bg-white">
+    <article class="mx-auto max-w-3xl px-4 py-10 sm:py-16">
+      <a href="/actualites" class="mb-6 inline-flex items-center gap-1 text-sm font-semibold text-primary-600 hover:underline">
+        ← Toutes les actualités
+      </a>
+
+      {article.coverImage && (
+        <img
+          src={article.coverImage}
+          alt={article.title}
+          class="mb-6 max-h-[420px] w-full rounded-2xl object-cover shadow-lg"
+        />
+      )}
+
+      <div class="mb-4 flex flex-wrap items-center gap-2 text-xs font-semibold uppercase tracking-wide text-primary-600">
+        <span>{formatDate(article.publishAt)}</span>
+        <span>·</span>
+        <span>{article.readingTimeMinutes} min de lecture</span>
+        {article.author && (
+          <>
+            <span>·</span>
+            <span>{article.author}</span>
+          </>
+        )}
+      </div>
+
+      <h1 class="mb-6 font-heading text-3xl font-black leading-tight text-slate-900 sm:text-4xl">
+        {article.title}
+      </h1>
+
+      <div
+        class="prose prose-slate max-w-none prose-headings:font-heading prose-a:text-primary-600 prose-img:rounded-xl"
+        set:html={article.contentHtml}
+      />
+
+      {article.tags?.length > 0 && (
+        <div class="mt-8 flex flex-wrap gap-2">
+          {article.tags.map((t) => (
+            <span class="rounded-full bg-slate-100 px-3 py-1 text-xs font-semibold text-slate-600">{t}</span>
+          ))}
+        </div>
+      )}
+
+      <div class="mt-8 border-t border-slate-200 pt-6">
+        <p class="mb-3 text-sm font-semibold text-slate-500">Partager cet article</p>
+        <ArticleShareButtons title={article.title} client:load />
+      </div>
+
+      {related.length > 0 && (
+        <div class="mt-16 border-t border-slate-200 pt-10">
+          <h2 class="mb-6 font-heading text-xl font-bold text-slate-900">Articles similaires</h2>
+          <div class="grid grid-cols-1 gap-6 sm:grid-cols-3">
+            {related.map((a) => (
+              <a
+                href={`/actualites/${a.slug}`}
+                class="group block overflow-hidden rounded-xl bg-white shadow-md transition-shadow hover:shadow-lg"
+              >
+                <div class="aspect-[16/10] overflow-hidden bg-slate-100">
+                  {a.coverImage && (
+                    <img
+                      src={a.coverImage}
+                      alt={a.title}
+                      class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
+                    />
+                  )}
+                </div>
+                <div class="p-4">
+                  <h3 class="text-sm font-bold leading-snug text-slate-900 transition-colors group-hover:text-primary-600">
+                    {a.title}
+                  </h3>
+                </div>
+              </a>
+            ))}
+          </div>
+        </div>
+      )}
+    </article>
+  </main>
+</BaseLayout>

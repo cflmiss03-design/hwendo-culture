@@ -59,7 +59,7 @@ export default function NewsList() {
     <div>
       {featured && showingUnfiltered && (
         <a
-          href={`/actualites/lire?slug=${featured.slug}`}
+          href={`/actualites/${featured.slug}`}
           className="group mb-12 block overflow-hidden rounded-3xl bg-slate-900 shadow-xl"
         >
           <div className="grid md:grid-cols-2">
@@ -122,7 +122,7 @@ export default function NewsList() {
           {gridItems.map((a) => (
             <a
               key={a._id}
-              href={`/actualites/lire?slug=${a.slug}`}
+              href={`/actualites/${a.slug}`}
               className="group flex flex-col overflow-hidden rounded-2xl bg-white shadow-md transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
             >
               <div className="aspect-[16/10] overflow-hidden bg-slate-100">
