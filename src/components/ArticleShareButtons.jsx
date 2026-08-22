@@ -6,44 +6,57 @@ import { useState } from "react";
 // de ShareButtons.jsx qui est spécifique aux profils de candidats (message
 // de sollicitation de vote).
 //
-// L'URL utilisée est toujours window.location.href, donc toujours celle
-// réellement affichée dans la barre d'adresse du navigateur — vrai que la
-// page vienne du fichier statique déjà buildé ou du fallback 404 (voir
-// ArticleFallback.jsx), le navigateur garde l'URL demandée dans les deux cas.
+// Important : l'URL n'est PAS calculée au rendu (window.location.href lu
+// dans le corps du composant), mais à l'intérieur de chaque onClick. Sur une
+// page statique, ce composant est pré-rendu au build (window indéfini côté
+// serveur) — un href="..." figé au rendu contiendrait alors une URL vide
+// tant que React n'a pas fini d'hydrater la page. Un clic pendant cette
+// fenêtre (très courante en pratique) partageait donc le texte seul, sans
+// lien. En lisant window.location.href au moment du clic, l'URL est
+// toujours la bonne, quel que soit l'état d'hydratation.
 export default function ArticleShareButtons({ title }) {
   const [copied, setCopied] = useState(false);
-  const url = typeof window !== "undefined" ? window.location.href : "";
-  const encodedUrl = encodeURIComponent(url);
-  const text = encodeURIComponent(title || "Festival Hwendo-Culture");
+
+  function currentUrl() {
+    return typeof window !== "undefined" ? window.location.href : "";
+  }
+
+  function shareOnWhatsApp() {
+    const text = encodeURIComponent(`${title || "Festival Hwendo-Culture"} ${currentUrl()}`);
+    window.open(`https://api.whatsapp.com/send?text=${text}`, "_blank", "noopener,noreferrer");
+  }
+
+  function shareOnFacebook() {
+    const encodedUrl = encodeURIComponent(currentUrl());
+    window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}`, "_blank", "noopener,noreferrer");
+  }
 
   async function handleCopyLink() {
     try {
-      await navigator.clipboard.writeText(url);
+      await navigator.clipboard.writeText(currentUrl());
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     } catch (err) {
-      window.prompt("Copiez ce lien :", url);
+      window.prompt("Copiez ce lien :", currentUrl());
     }
   }
 
   return (
     <div className="flex flex-wrap gap-3">
-      <a
-        href={`https://api.whatsapp.com/send?text=${text}%20${encodedUrl}`}
-        target="_blank"
-        rel="noopener noreferrer"
+      <button
+        type="button"
+        onClick={shareOnWhatsApp}
         className="inline-flex items-center gap-2 rounded-lg bg-green-600 px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-green-700"
       >
         <span>💬</span> WhatsApp
-      </a>
-      <a
-        href={`https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}`}
-        target="_blank"
-        rel="noopener noreferrer"
+      </button>
+      <button
+        type="button"
+        onClick={shareOnFacebook}
         className="inline-flex items-center gap-2 rounded-lg bg-blue-700 px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-blue-800"
       >
         <span>📘</span> Facebook
-      </a>
+      </button>
       <button
         type="button"
         onClick={handleCopyLink}
