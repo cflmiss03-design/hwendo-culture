@@ -63,8 +63,8 @@ export default function ArticleFallback() {
 
   return (
     <article className="mx-auto max-w-3xl px-4 py-10 sm:py-16">
-      <div className="mb-6 rounded-lg bg-amber-50 px-4 py-3 text-sm text-amber-800">
-        📰 Article tout juste publié — la version définitive sera disponible sous peu.
+      <div className="mb-6 inline-flex items-center gap-1.5 rounded-full bg-red-600 px-3 py-1 text-xs font-bold uppercase tracking-wide text-white">
+        🔴 Urgent
       </div>
 
       <a href="/actualites" className="mb-6 inline-flex items-center gap-1 text-sm font-semibold text-primary-600 hover:underline">
