@@ -40,7 +40,7 @@ export default function CandidateCard({ candidate, category, rank, period }) {
       <article className="group h-full flex flex-col overflow-hidden rounded-2xl bg-white shadow-md hover:shadow-2xl transition-all duration-300 hover:-translate-y-2">
         
         {/* IMAGE SECTION */}
-        <div className="relative h-80 sm:h-96 w-full overflow-hidden bg-gradient-to-br from-slate-100 to-slate-50">
+        <div className="relative h-48 sm:h-96 w-full overflow-hidden bg-gradient-to-br from-slate-100 to-slate-50">
           
           {/* Skeleton Loading - Fades out */}
           {!imageLoaded && (
@@ -66,7 +66,7 @@ export default function CandidateCard({ candidate, category, rank, period }) {
         </div>
 
 {/* CONTENT SECTION */}
-<div className="flex flex-1 flex-col gap-4 p-5 sm:p-6">
+<div className="flex flex-1 flex-col gap-3 p-4 sm:gap-4 sm:p-6">
 
   {/* Name */}
   <div className="min-h-[60px]">
@@ -92,7 +92,7 @@ export default function CandidateCard({ candidate, category, rank, period }) {
 
   {/* Vote Counter Box */}
   {candidateId && (
-    <div className="relative overflow-hidden rounded-2xl bg-gradient-primary p-4 text-white shadow-md transition-all duration-300 group-hover:shadow-xl">
+    <div className="relative overflow-hidden rounded-2xl bg-gradient-primary p-3 text-white shadow-md transition-all duration-300 group-hover:shadow-xl sm:p-4">
 
       <div className="absolute right-0 top-0 h-20 w-20 rounded-full bg-white/10 blur-2xl" />
 
@@ -101,7 +101,7 @@ export default function CandidateCard({ candidate, category, rank, period }) {
       </p>
 
       <div className="flex items-end justify-between">
-        <p className="text-3xl font-black leading-none">
+        <p className="text-2xl font-black leading-none sm:text-3xl">
           <VoteCounter candidateId={candidateId} />
         </p>
 
@@ -110,17 +110,17 @@ export default function CandidateCard({ candidate, category, rank, period }) {
   )}
 
           {/* Action Buttons */}
-          <div className="mt-auto flex flex-col gap-3 sm:flex-row">
+          <div className="mt-auto flex flex-row gap-2 sm:gap-3">
             <button
               onClick={handleVoteClick}
-              className="flex-1 inline-flex items-center justify-center gap-2 bg-gradient-primary text-white font-semibold py-3 px-4 rounded-lg hover:shadow-lg active:scale-95 transition-all duration-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-500 hover:brightness-110"
+              className="flex-1 inline-flex items-center justify-center gap-1.5 bg-gradient-primary text-white font-semibold py-2.5 px-3 rounded-lg hover:shadow-lg active:scale-95 transition-all duration-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-500 hover:brightness-110 sm:py-3 sm:px-4"
             >
               <span>🗳️</span>
               <span>Voter</span>
             </button>
             <a
               href={`/${category}/${candidate.slug}`}
-              className="flex-1 inline-flex items-center justify-center gap-2 border-2 border-slate-200 text-primary-600 font-semibold py-3 px-4 rounded-lg hover:bg-slate-50 hover:border-primary-300 transition-all duration-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-500"
+              className="flex-1 inline-flex items-center justify-center gap-1.5 border-2 border-slate-200 text-primary-600 font-semibold py-2.5 px-3 rounded-lg hover:bg-slate-50 hover:border-primary-300 transition-all duration-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-500 sm:py-3 sm:px-4"
             >
               <span>→</span>
               <span>Profil</span>
