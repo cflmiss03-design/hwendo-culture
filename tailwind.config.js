@@ -416,5 +416,8 @@ module.exports = {
       addVariant("group-hover", "&.group:hover > *");
       addVariant("dark-mode", "[data-theme='dark'] &");
     },
+    // Styles "prose" pour le HTML riche des articles Actualité (voir
+    // pages/actualites/lire.astro).
+    require("@tailwindcss/typography"),
   ],
 };

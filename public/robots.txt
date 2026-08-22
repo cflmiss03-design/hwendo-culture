@@ -6,6 +6,7 @@ User-agent: *
 Allow: /
 Allow: /a-propos
 Allow: /galerie
+Allow: /actualites
 Allow: /contact
 Allow: /sponsoring
 Allow: /top-modele-afrique

@@ -28,6 +28,12 @@ function resolveApiPrefix() {
 
 const API_BASE_URL = `${API_ORIGIN}${resolveApiPrefix()}`;
 
+// Actualité : contenu PARTAGÉ par tout le site (pas propre à une catégorie),
+// donc jamais résolu via resolveApiPrefix() ci-dessus — toujours le tenant
+// technique dédié "hwendo-site" (voir server-votes/src/config/tenants.js),
+// quelle que soit la catégorie depuis laquelle la page est visitée.
+export const NEWS_API_BASE_URL = `${API_ORIGIN}/api/hwendo-site`;
+
 // Dates uniquement indicatives pour les données structurées SEO (JSON-LD
 // Event). Purement statiques, à mettre à jour manuellement dans le code si
 // besoin — n'ont plus aucun effet sur le blocage réel du bouton "Voter",
