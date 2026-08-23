@@ -90,8 +90,9 @@ export default function CandidateCard({ candidate, category, rank, period }) {
     )}
   </div>
 
-  {/* Vote Counter Box */}
-  {candidateId && (
+  {/* Vote Counter Box — masqué si l'admin a activé "hideVoteCounts" (voir
+      Settings.js côté backend) pour éviter l'effet "vote de panurge". */}
+  {candidateId && !period?.hideVoteCounts && (
     <div className="relative overflow-hidden rounded-2xl bg-gradient-primary p-3 text-white shadow-md transition-all duration-300 group-hover:shadow-xl sm:p-4">
 
       <div className="absolute right-0 top-0 h-20 w-20 rounded-full bg-white/10 blur-2xl" />

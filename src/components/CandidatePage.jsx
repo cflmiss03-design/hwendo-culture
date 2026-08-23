@@ -31,9 +31,12 @@ export default function CandidatePage({ candidate, category }) {
     if (candidate?.id) setCandidateId(candidate.id);
   }, [candidate]);
 
-  // 1 seul fetch pour récupérer le rang de cette candidate
+  // 1 seul fetch pour récupérer le rang de cette candidate — jamais si
+  // hideVoteCounts est actif (le rang révèle indirectement les scores, voir
+  // aussi CandidateGrid.jsx). Redéclenché quand period charge, pour ne pas
+  // fetcher avant de savoir si c'est masqué.
   useEffect(() => {
-    if (!candidate?.id) return;
+    if (!candidate?.id || period?.hideVoteCounts) return;
     let isMounted = true;
 
     const fetchRank = async () => {
@@ -49,7 +52,7 @@ export default function CandidatePage({ candidate, category }) {
 
     fetchRank();
     return () => { isMounted = false; };
-  }, [candidate?.id]);
+  }, [candidate?.id, period?.hideVoteCounts]);
 
   const displayRank = rank ?? `#${candidate?.orderNumber}`;
 
@@ -125,21 +128,27 @@ export default function CandidatePage({ candidate, category }) {
                 <div className="absolute -top-12 -right-12 h-32 w-32 rounded-full bg-amber-500/20 blur-3xl"></div>
                 <div className="absolute -bottom-12 -left-12 h-32 w-32 rounded-full bg-yellow-400/10 blur-3xl"></div>
                 <div className="relative z-10">
-                  <div className="mb-5 text-center">
-                    <p className="text-xs uppercase tracking-[0.3em] text-amber-400 font-bold">
-                      Total des votes
-                    </p>
-                  </div>
-                  <div className="mb-6 flex justify-center">
-                    <div className="rounded-3xl border border-white/10 bg-white/10 backdrop-blur-xl px-8 py-5 text-center min-w-[140px]">
-                      <div className="text-4xl sm:text-5xl font-black text-white">
-                        <VoteCounter candidateId={candidateId} />
+                  {/* Masqué si hideVoteCounts est actif — le bouton Voter
+                      juste en dessous reste, lui, toujours fonctionnel. */}
+                  {!period?.hideVoteCounts && (
+                    <>
+                      <div className="mb-5 text-center">
+                        <p className="text-xs uppercase tracking-[0.3em] text-amber-400 font-bold">
+                          Total des votes
+                        </p>
                       </div>
-                      <div className="mt-1 text-xs uppercase tracking-widest text-white/60">
-                        Votes reçus
+                      <div className="mb-6 flex justify-center">
+                        <div className="rounded-3xl border border-white/10 bg-white/10 backdrop-blur-xl px-8 py-5 text-center min-w-[140px]">
+                          <div className="text-4xl sm:text-5xl font-black text-white">
+                            <VoteCounter candidateId={candidateId} />
+                          </div>
+                          <div className="mt-1 text-xs uppercase tracking-widest text-white/60">
+                            Votes reçus
+                          </div>
+                        </div>
                       </div>
-                    </div>
-                  </div>
+                    </>
+                  )}
                   <button
                     onClick={handleVoteClick}
                     className="w-full rounded-2xl bg-gradient-to-r from-amber-500 via-yellow-500 to-orange-500 px-6 py-4 text-base sm:text-lg font-black text-white shadow-lg transition-all duration-300 hover:scale-[1.03] hover:shadow-[0_15px_35px_rgba(245,158,11,0.45)] active:scale-95 flex items-center justify-center gap-3"

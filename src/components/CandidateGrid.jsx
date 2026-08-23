@@ -23,30 +23,27 @@ export default function CandidateGrid({
   useEffect(() => {
     let isMounted = true;
 
-    const fetchRankings = async () => {
-      try {
-        const rankings = await fetchAPI("/candidates/rankings");
-        if (!isMounted) return;
-
-        const map = {};
-        rankings.forEach(({ candidateId, rank }) => {
-          map[candidateId] = { rank, label: formatRank(rank) };
-        });
-
-        setRankMap(map);
-      } catch (err) {
-        console.error("Erreur classement :", err);
-      }
-    };
-
-    fetchRankings();
-    return () => { isMounted = false; };
-  }, []);
-
-  useEffect(() => {
+    // Le classement révèle indirectement les scores (même sans afficher de
+    // nombre) — on ne le récupère donc pas du tout quand hideVoteCounts est
+    // actif : rankMap reste vide, le tri retombe sur orderNumber (neutre) et
+    // chaque carte affiche son #orderNumber au lieu d'un rang calculé.
     getVotingPeriod()
-      .then(setPeriod)
-      .catch((err) => console.error("Erreur récupération période de vote :", err));
+      .then((p) => {
+        if (!isMounted) return;
+        setPeriod(p);
+        if (p?.hideVoteCounts) return;
+        return fetchAPI("/candidates/rankings").then((rankings) => {
+          if (!isMounted) return;
+          const map = {};
+          rankings.forEach(({ candidateId, rank }) => {
+            map[candidateId] = { rank, label: formatRank(rank) };
+          });
+          setRankMap(map);
+        });
+      })
+      .catch((err) => console.error("Erreur récupération période de vote / classement :", err));
+
+    return () => { isMounted = false; };
   }, []);
 
   const hasRanks = Object.keys(rankMap).length > 0;
