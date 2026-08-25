@@ -1,23 +1,78 @@
-import { useEffect, useState } from "react";
-import { SuccessView, CancelledView, ErrorView } from "./PaymentViews";
+import { useEffect, useRef, useState } from "react";
+import { SuccessView, CancelledView, ErrorView, PendingView } from "./PaymentViews";
 import TicketClaimForm from "./TicketClaimForm";
+import { fetchAPI } from "../services/api.js";
+
+// CHANGED: polling SebPay (voir memory/sebpay_integration.md) — filet de
+// sécurité en complément du webhook. Miroir de VotePaymentStatus.jsx, mais
+// interroge GET /tickets/status/:id (Ticket.status: pending|paid|failed —
+// pas d'équivalent "awaiting_review", la billetterie n'a jamais de
+// vérification manuelle).
+const POLL_INTERVAL_MS = 3000;
+const POLL_TIMEOUT_MS = 3 * 60 * 1000;
 
 export default function TicketPaymentStatus() {
   const [view, setView] = useState("loading");
   const [transactionId, setTransactionId] = useState(null);
   const [showClaimForm, setShowClaimForm] = useState(false);
+  const pollTimer = useRef(null);
+  const pollDeadline = useRef(null);
+
+  function stopPolling() {
+    if (pollTimer.current) clearTimeout(pollTimer.current);
+    pollTimer.current = null;
+  }
+
+  function pollSebpayStatus(id) {
+    setTransactionId(id);
+    setView("pending");
+    pollDeadline.current = Date.now() + POLL_TIMEOUT_MS;
+
+    const check = async () => {
+      try {
+        const data = await fetchAPI(`/tickets/status/${encodeURIComponent(id)}`);
+        if (data.status === "paid") {
+          setView("success");
+          return;
+        }
+        if (data.status === "failed") {
+          setView("error");
+          return;
+        }
+        // "pending" : toujours en attente de confirmation côté téléphone.
+      } catch (err) {
+        console.error("Erreur de suivi du paiement SebPay:", err);
+      }
+
+      if (Date.now() >= pollDeadline.current) {
+        setView("timeout");
+        return;
+      }
+      pollTimer.current = setTimeout(check, POLL_INTERVAL_MS);
+    };
+
+    check();
+  }
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     const status = params.get("status");
     const close = params.get("close");
     const id = params.get("id");
+    const provider = params.get("provider");
+
+    if (provider === "sebpay" && id) {
+      pollSebpayStatus(id);
+      return () => stopPolling();
+    }
 
     if (status === "approved" && id) setTransactionId(id);
 
     if (close === "true") setView("cancelled");
     else if (status === "approved") setView("success");
     else setView("error");
+
+    return undefined;
   }, []);
 
   const retry = () => window.location.reload();
@@ -71,6 +126,18 @@ export default function TicketPaymentStatus() {
             message="L'achat de ticket a été annulé. Aucun montant n'a été débité."
             primaryHref="/tickets"
             primaryLabel="Reprendre l'achat"
+          />
+        )}
+        {view === "pending" && (
+          <PendingView
+            message="Une demande de paiement a été envoyée à votre numéro. Validez-la (notification ou code USSD reçu) pour recevoir votre ticket."
+          />
+        )}
+        {view === "timeout" && (
+          <ErrorView
+            onRetry={retry}
+            title="Confirmation plus longue que prévue"
+            message="Nous n'avons pas encore reçu la confirmation de votre paiement. Si vous avez validé la demande sur votre téléphone, votre ticket arrivera sous peu — sinon, réessayez."
           />
         )}
         {view === "error" && (

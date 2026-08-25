@@ -10,6 +10,10 @@ const Card = ({ variant, children }) => {
     success: "relative bg-gradient-to-br from-primary-50 via-white to-primary-50 border border-primary-200 shadow-premium",
     cancelled: "relative bg-gradient-to-br from-danger-50 via-white to-danger-50 border border-danger-200 shadow-soft",
     error: "relative bg-gradient-to-br from-warning-50 via-white to-warning-50 border border-warning-200 shadow-soft",
+    // CHANGED: paiement SebPay direct (voir memory/sebpay_integration.md) — en
+    // attente de confirmation côté téléphone du votant, pas encore un succès
+    // ni un échec.
+    pending: "relative bg-gradient-to-br from-sky-50 via-white to-sky-50 border border-sky-200 shadow-soft",
   };
 
   return (
@@ -143,6 +147,39 @@ export function CancelledView({
             {secondaryLabel}
           </a>
         </div>
+      </div>
+    </Card>
+  );
+}
+
+/* ================= PENDING (SebPay) ================= */
+// CHANGED: écran d'attente pour le flux SebPay direct (pas de page hébergée
+// dans le cas général, voir memory/sebpay_integration.md) — le paiement a été
+// initié mais pas encore confirmé, le votant doit valider sur son téléphone
+// (USSD ou notification). Voir VotePaymentStatus.jsx pour le polling associé.
+export function PendingView({
+  title = "Confirmez sur votre téléphone",
+  message = "Une demande de paiement a été envoyée à votre numéro. Validez-la (notification ou code USSD reçu) pour que votre vote soit compté.",
+  hint = "Cette page se met à jour automatiquement dès que le paiement est confirmé — inutile de revenir en arrière.",
+}) {
+  return (
+    <Card variant="pending">
+      <div className="max-w-2xl">
+        <div className="mb-6 inline-flex items-center justify-center w-16 h-16 rounded-full bg-sky-100">
+          <span className="text-3xl animate-pulse">⏳</span>
+        </div>
+
+        <h1 className="font-heading text-3xl sm:text-4xl font-bold text-slate-900 leading-tight mb-4 animate-fade-up">
+          {title}
+        </h1>
+
+        <p className="text-lg text-slate-600 leading-relaxed mb-4 animate-fade-up" style={{ animationDelay: "0.1s" }}>
+          {message}
+        </p>
+
+        <p className="text-sm text-slate-500 animate-fade-up" style={{ animationDelay: "0.2s" }}>
+          {hint}
+        </p>
       </div>
     </Card>
   );

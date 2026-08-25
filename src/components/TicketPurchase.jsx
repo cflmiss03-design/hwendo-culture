@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { fetchAPI } from "../services/api.js";
+import { getVotingPeriod } from "../services/votingPeriod.js";
 import TicketClaimForm from "./TicketClaimForm.jsx";
 
 const MAX_QUANTITY = 20;
@@ -80,6 +81,15 @@ function StepProgress({ step, maxReached, onJump }) {
 }
 
 export default function TicketPurchase() {
+  // CHANGED: billetterie désactivée pour cet événement (voir
+  // Settings.ticketsEnabled) — contrairement à frontend-votes-palais-royal
+  // (page /tickets dédiée, on peut rediriger), ce composant est intégré
+  // directement dans la page de catégorie (section #tickets, voir
+  // pages/[category]/index.astro) : on ne redirige jamais, on affiche un
+  // message à la place du formulaire. `null` = pas encore vérifié (aucun
+  // rendu tant que l'état n'est pas connu, pour éviter un flash du formulaire).
+  const [ticketsEnabled, setTicketsEnabled] = useState(null);
+
   const [ticketTypes, setTicketTypes] = useState([]);
   const [loadingTypes, setLoadingTypes] = useState(true);
   const [loadError, setLoadError] = useState(null);
@@ -100,6 +110,20 @@ export default function TicketPurchase() {
   const [submitError, setSubmitError] = useState(null);
   const [showClaimForm, setShowClaimForm] = useState(false);
 
+  // CHANGED: routage Local/Afrique (voir memory/sebpay_integration.md) —
+  // même logique que VoteModal.jsx. "form" = étape coordonnées existante,
+  // "country"/"operator" n'apparaissent qu'en mode de paiement "Afrique".
+  const [paymentType, setPaymentType] = useState("local");
+  const [countries, setCountries] = useState([]);
+  const [paymentStep, setPaymentStep] = useState("form");
+  const [selectedCountry, setSelectedCountry] = useState("");
+  const [countryError, setCountryError] = useState(null);
+  const [sebpayCountryNames, setSebpayCountryNames] = useState(null);
+  const [operators, setOperators] = useState([]);
+  const [selectedOperator, setSelectedOperator] = useState("");
+  const [otpCode, setOtpCode] = useState("");
+  const [operatorError, setOperatorError] = useState(null);
+
   // Vérification en direct du code candidate : "idle" | "invalid-format" |
   // "checking" | "found" | "not-found"
   const [codeStatus, setCodeStatus] = useState("idle");
@@ -111,10 +135,24 @@ export default function TicketPurchase() {
   const codeCacheRef = useRef(new Map());
 
   useEffect(() => {
+    // Best-effort : en cas d'échec réseau, on suppose activé plutôt que de
+    // bloquer indéfiniment un événement qui vend réellement des tickets.
+    getVotingPeriod()
+      .then((data) => setTicketsEnabled(!!data.ticketsEnabled))
+      .catch(() => setTicketsEnabled(true));
+
     fetchAPI("/tickets/types")
       .then((data) => setTicketTypes(data))
       .catch((err) => setLoadError(err.message))
       .finally(() => setLoadingTypes(false));
+
+    // Best-effort : l'achat reste possible en mode Local si cet appel échoue.
+    fetchAPI("/payments/countries")
+      .then((data) => {
+        setPaymentType(data.paymentType || "local");
+        setCountries(data.countries || []);
+      })
+      .catch(() => {});
   }, []);
 
   // Étape 1, cliente : le format doit être complet (XXXX-YYYY) avant même de
@@ -223,10 +261,10 @@ export default function TicketPurchase() {
   const canSubmit =
     selectedType && form.nom.trim() && form.email.trim() && form.telephone.trim();
 
-  async function handleSubmit(e) {
-    e.preventDefault();
-    if (!canSubmit) return;
-
+  // CHANGED: extrait du handleSubmit d'origine — appelé directement en mode
+  // Local, ou après le choix pays/opérateur en mode Afrique quand le pays
+  // résout vers FedaPay (même flux redirection dans les deux cas).
+  async function submitPurchase(extra = {}) {
     setSubmitting(true);
     setSubmitError(null);
 
@@ -244,18 +282,115 @@ export default function TicketPurchase() {
           },
           candidateCode: form.candidateCode || undefined,
           quantity,
+          ...extra,
         }),
       });
 
       if (data.payment_url) {
         window.location.href = data.payment_url;
-      } else {
-        throw new Error("URL de paiement introuvable");
+        return;
       }
+      if (data.transactionId) {
+        // Exception au flux direct (observée avec Wave) : une page de
+        // confirmation doit s'ouvrir dans un nouvel onglet.
+        if (data.providerLink) {
+          window.open(data.providerLink, "_blank", "noopener,noreferrer");
+        }
+        // CHANGED: route préfixée par catégorie sur ce frontend (voir
+        // VoteModal.jsx pour la même remarque).
+        const categoryPrefix = window.location.pathname.split("/").filter(Boolean)[0];
+        window.location.href = `/${categoryPrefix}/tickets/status?provider=sebpay&id=${encodeURIComponent(data.transactionId)}`;
+        return;
+      }
+      throw new Error("URL de paiement introuvable");
     } catch (err) {
       setSubmitError(err.message);
       setSubmitting(false);
     }
+  }
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    if (!canSubmit) return;
+
+    if (paymentType !== "afrique" || countries.length === 0) {
+      submitPurchase();
+      return;
+    }
+    setPaymentStep("country");
+  }
+
+  async function handleSelectCountry() {
+    setCountryError(null);
+    setSebpayCountryNames(null);
+
+    const country = countries.find((c) => c.code === selectedCountry);
+    if (!country) {
+      setCountryError("Veuillez choisir un pays.");
+      return;
+    }
+
+    if (country.provider === "fedapay") {
+      submitPurchase({ country: country.code });
+      return;
+    }
+
+    setSubmitting(true);
+    try {
+      const data = await fetchAPI(`/payments/operators?country=${encodeURIComponent(country.code)}`);
+      if (!data.available) {
+        setCountryError(data.message || "Pays non disponible actuellement");
+        setSebpayCountryNames((data.sebpayCountries || []).map((c) => c.name));
+        return;
+      }
+      setOperators(data.operators || []);
+      setSelectedOperator("");
+      setOtpCode("");
+      setPaymentStep("operator");
+    } catch (err) {
+      setCountryError("Erreur lors de la vérification du pays : " + err.message);
+    } finally {
+      setSubmitting(false);
+    }
+  }
+
+  function handleSubmitSebpayTicket() {
+    setOperatorError(null);
+
+    const operator = operators.find((o) => o.slug === selectedOperator);
+    if (!operator) {
+      setOperatorError("Veuillez choisir un opérateur.");
+      return;
+    }
+    if (operator.otpRequired && !otpCode.trim()) {
+      setOperatorError("Veuillez saisir le code reçu après avoir composé le code USSD.");
+      return;
+    }
+
+    const country = countries.find((c) => c.code === selectedCountry);
+    submitPurchase({
+      country: country?.code,
+      // CHANGED: SebPay attend `code` (ex: "mtn"), pas `slug` (ex: "mtn-bj"),
+      // malgré ce que leur doc appelle "slug" pour ce paramètre. Confirmé
+      // par erreur réelle en test.
+      operator: operator.code,
+      ...(operator.otpRequired ? { otpCode: otpCode.trim() } : {}),
+    });
+  }
+
+  const selectedOperatorObj = operators.find((o) => o.slug === selectedOperator);
+
+  // CHANGED: billetterie désactivée — rien tant que ticketsEnabled n'est pas
+  // connu (évite le flash), puis un message à la place du formulaire.
+  if (ticketsEnabled === null) {
+    return null;
+  }
+  if (ticketsEnabled === false) {
+    return (
+      <p className="mx-auto max-w-xl text-center text-slate-500">
+        La billetterie n'est pas encore ouverte pour cette catégorie. Revenez bientôt !
+      </p>
+    );
   }
 
   if (loadingTypes) {
@@ -420,7 +555,10 @@ export default function TicketPurchase() {
 
       {/* Étape 3 : coordonnées + paiement */}
       {step === 3 && selectedType && (
-        <form onSubmit={handleSubmit} className="animate-fade-up space-y-6">
+        <div className="animate-fade-up space-y-6">
+        {/* CHANGED: sous-étape "form" (routage Local/Afrique, voir memory/sebpay_integration.md) */}
+        {paymentStep === "form" && (
+        <form onSubmit={handleSubmit} className="space-y-6">
           <h2 className="flex items-center gap-3 text-lg sm:text-xl font-bold text-slate-900">
             <StepBadge n={3} active />
             Vos coordonnées
@@ -581,11 +719,141 @@ export default function TicketPurchase() {
             >
               <span className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/25 to-transparent group-hover:translate-x-full transition-transform duration-700 ease-out" />
               <span className="relative">
-                {submitting ? "Préparation du paiement..." : `Payer ${total.toLocaleString()} FCFA`}
+                {submitting
+                  ? "Préparation du paiement..."
+                  : paymentType === "afrique"
+                  ? "Continuer"
+                  : `Payer ${total.toLocaleString()} FCFA`}
               </span>
             </button>
           </div>
         </form>
+        )}
+
+        {/* CHANGED: sous-étape pays (mode Afrique uniquement) */}
+        {paymentStep === "country" && (
+          <div className="space-y-6">
+            <h2 className="flex items-center gap-3 text-lg sm:text-xl font-bold text-slate-900">
+              <StepBadge n={3} active />
+              Dans quel pays payez-vous ?
+            </h2>
+            <select
+              value={selectedCountry}
+              onChange={(e) => setSelectedCountry(e.target.value)}
+              className="w-full rounded-lg border border-gray-300 px-4 py-2.5 focus:ring-2 focus:ring-primary-500 outline-none"
+            >
+              <option value="">Sélectionner un pays</option>
+              {countries.map((c) => (
+                <option key={c.code} value={c.code}>
+                  {c.name}
+                </option>
+              ))}
+            </select>
+
+            {countryError && (
+              <div className="rounded-xl bg-red-50 border border-red-100 p-3 text-sm text-red-700">
+                <p>{countryError}</p>
+                {sebpayCountryNames && sebpayCountryNames.length > 0 && (
+                  <p className="mt-2 text-xs text-red-600">
+                    Pays actuellement disponibles : {sebpayCountryNames.join(", ")}
+                  </p>
+                )}
+              </div>
+            )}
+
+            <div className="flex gap-3">
+              <button
+                type="button"
+                onClick={() => setPaymentStep("form")}
+                className="shrink-0 rounded-xl border-2 border-slate-200 text-slate-700 font-semibold px-4 sm:px-6 py-3 hover:bg-slate-50 transition-colors text-sm sm:text-base"
+              >
+                ← Retour
+              </button>
+              <button
+                type="button"
+                onClick={handleSelectCountry}
+                disabled={submitting || !selectedCountry}
+                className="flex-1 rounded-2xl bg-gradient-to-r from-primary-600 via-primary-500 to-secondary-600 py-3.5 text-base font-bold text-white shadow-md hover:scale-[1.02] transition-all disabled:opacity-60"
+              >
+                {submitting ? "Vérification..." : "Continuer"}
+              </button>
+            </div>
+          </div>
+        )}
+
+        {/* CHANGED: sous-étape opérateur SebPay (mode Afrique, pays routé SebPay) */}
+        {paymentStep === "operator" && (
+          <div className="space-y-6">
+            <h2 className="flex items-center gap-3 text-lg sm:text-xl font-bold text-slate-900">
+              <StepBadge n={3} active />
+              Opérateur mobile money
+            </h2>
+            <div className="space-y-2">
+              {operators.map((op) => (
+                <label
+                  key={op.slug}
+                  className={`flex items-center gap-3 rounded-xl border p-3 cursor-pointer transition ${
+                    selectedOperator === op.slug ? "border-primary-500 bg-primary-50" : "border-gray-200"
+                  }`}
+                >
+                  <input
+                    type="radio"
+                    name="operator"
+                    value={op.slug}
+                    checked={selectedOperator === op.slug}
+                    onChange={() => setSelectedOperator(op.slug)}
+                  />
+                  <span className="font-medium text-gray-800">{op.name}</span>
+                </label>
+              ))}
+            </div>
+            <p className="text-xs text-slate-500">
+              Numéro utilisé : <strong>{form.telephone || "(non renseigné à l'étape précédente)"}</strong>
+            </p>
+
+            {selectedOperatorObj?.otpRequired && (
+              <div className="rounded-xl bg-sky-50 border border-sky-100 p-3 text-sm text-sky-800">
+                <p className="mb-2">
+                  Cet opérateur demande une confirmation : composez{" "}
+                  <strong>{selectedOperatorObj.ussdCode || "le code USSD reçu de votre opérateur"}</strong> sur votre
+                  téléphone, puis saisissez le code reçu ci-dessous.
+                </p>
+                <input
+                  type="text"
+                  value={otpCode}
+                  onChange={(e) => setOtpCode(e.target.value)}
+                  placeholder="Code reçu"
+                  className="w-full rounded-lg border border-sky-200 p-2.5 text-base focus:border-sky-500 focus:outline-none"
+                />
+              </div>
+            )}
+
+            {operatorError && (
+              <div className="rounded-xl bg-red-50 border border-red-100 p-3 text-sm text-red-700">
+                {operatorError}
+              </div>
+            )}
+
+            <div className="flex gap-3">
+              <button
+                type="button"
+                onClick={() => setPaymentStep("country")}
+                className="shrink-0 rounded-xl border-2 border-slate-200 text-slate-700 font-semibold px-4 sm:px-6 py-3 hover:bg-slate-50 transition-colors text-sm sm:text-base"
+              >
+                ← Retour
+              </button>
+              <button
+                type="button"
+                onClick={handleSubmitSebpayTicket}
+                disabled={submitting}
+                className="flex-1 rounded-2xl bg-gradient-to-r from-primary-600 via-primary-500 to-secondary-600 py-3.5 text-base font-bold text-white shadow-md hover:scale-[1.02] transition-all disabled:opacity-60"
+              >
+                {submitting ? "Envoi de la demande..." : `Payer ${total.toLocaleString()} FCFA`}
+              </button>
+            </div>
+          </div>
+        )}
+        </div>
       )}
 
       <div className="mt-10 text-center border-t border-slate-100 pt-6">
