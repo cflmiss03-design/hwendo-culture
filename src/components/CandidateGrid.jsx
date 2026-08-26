@@ -11,14 +11,46 @@ function formatRank(rank) {
 }
 
 export default function CandidateGrid({
-  candidates,
+  candidates: initialCandidates,
   category,
   eyebrow = "Découvrez nos candidats",
   title = "En Compétition",
   intro = "Participez au vote et soutenez votre candidat préféré. Chaque vote compte pour célébrer la culture béninoise.",
 }) {
+  // CHANGED (2026-08-26) : `initialCandidates` = liste figée au moment du
+  // build (src/data/*-candidates.js, régénérée uniquement par un script
+  // local — voir memory/frontend_deployment.md). Un candidat ajouté/modifié
+  // depuis l'espace admin en production restait donc invisible ici jusqu'au
+  // prochain rebuild. On garde cette liste comme premier rendu instantané
+  // (paint rapide + SEO), puis on la remplace par la vraie liste en direct
+  // dès qu'elle arrive — aucun rebuild du site n'est plus nécessaire pour
+  // qu'un nouveau candidat apparaisse et soit votable.
+  const [candidates, setCandidates] = useState(initialCandidates);
   const [rankMap, setRankMap] = useState({});
   const [period, setPeriod] = useState(null);
+
+  useEffect(() => {
+    let isMounted = true;
+    fetchAPI("/candidates")
+      .then((live) => {
+        if (!isMounted) return;
+        setCandidates(
+          live.map((c) => ({
+            id: c._id,
+            orderNumber: c.orderNumber,
+            firstName: c.firstName,
+            secondName: c.secondName,
+            lastName: c.lastName,
+            text: c.text,
+            slug: c.slug,
+            photoUrl: c.photoUrl,
+            unitPrice: c.unitPrice,
+          }))
+        );
+      })
+      .catch((err) => console.error("Erreur récupération candidats en direct :", err));
+    return () => { isMounted = false; };
+  }, []);
 
   useEffect(() => {
     let isMounted = true;
