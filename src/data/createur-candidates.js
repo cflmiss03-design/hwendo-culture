@@ -62,10 +62,21 @@ export const candidates = [
     "orderNumber": 6,
     "firstName": "Marie Michelle Cornelia",
     "secondName": " ",
-    "lastName": "AGUIDA DAHO",
+    "lastName": "AGUIA DAHO",
     "text": "Âge : 22 ans\n\n✨ Créative, audacieuse et passionnée, Michelle considère la mode comme un véritable moyen d'expression. À travers chacune de ses créations, elle souhaite partager son univers, affirmer son regard et laisser une empreinte unique. Le concours Jeune Créateur en Compétition représente pour elle une vitrine et une opportunité de mettre son talent en lumière, tout en continuant à apprendre et à se perfectionner. Elle souhaite également contribuer à faire rayonner l'événement à travers son travail et sa créativité.\n\nSoutenez la candidate N°6 et accompagnez-la dans cette belle aventure.",
     "slug": "votez-aguia-daho-michelle",
     "photoUrl": "https://res.cloudinary.com/di21pnpda/image/upload/v1787259863/WhatsApp_Image_2026-08-20_at_22.01.59_ob4xoj.jpg",
+    "unitPrice": 150
+  },
+  {
+    "id": "6a8e832581e707f53b6d0b20",
+    "orderNumber": 7,
+    "firstName": "Morayo Mirabelle",
+    "secondName": " ",
+    "lastName": " ATTRA ",
+    "text": "Âge : 21 ans\nOrigine : Bénin 🇧🇯\nProfession : Designer créatrice\nAmbition : Contribuer à la préservation et à la transmission du patrimoine culturel béninois à travers des créations modernes, créatives et porteuses de sens.\n\n✨ À 21 ans, Mirabelle considère la mode comme un puissant moyen d’expression et de transmission. Créative, audacieuse et passionnée, elle souhaite utiliser son talent pour contribuer à la préservation des traditions et à la valorisation du patrimoine culturel béninois. À travers le concours Jeune Créateur en Compétition, elle ambitionne de montrer qu’il est possible de faire vivre les richesses culturelles du Bénin à travers des créations modernes et inspirantes, tout en les rendant accessibles aux générations futures. Soutenez la candidate N°7 et accompagnez-la dans cette belle aventure.\n",
+    "slug": "votez-morayo-mirabelle-attra",
+    "photoUrl": "https://res.cloudinary.com/di21pnpda/image/upload/v1787720945/NO_xkyyl3.jpg",
     "unitPrice": 150
   }
 ];
