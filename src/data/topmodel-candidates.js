@@ -199,5 +199,16 @@ export const candidates = [
     "slug": "votez-manounganana-erudit",
     "photoUrl": "https://res.cloudinary.com/di21pnpda/image/upload/v1787130983/mannequin_20_dgt66z.jpg",
     "unitPrice": 150
+  },
+  {
+    "id": "6a97ea7b5f7995b829a91c44",
+    "orderNumber": 19,
+    "firstName": "Kerfala",
+    "secondName": " ",
+    "lastName": "TOURE",
+    "text": "Âge : 20 ans\n\n✨ Passionné par le mannequinat, Kerfala incarne une élégance masculine naturelle et une jeunesse africaine ambitieuse. À travers la Nuit de l'Élégance Africaine, il souhaite repousser ses limites, développer davantage sa prestance et représenter avec fierté une vision moderne et authentique de l'élégance masculine africaine. Soutenez le candidat N°19 et accompagnez-le dans cette belle aventure.\n\n📣 Soutenez Kerfala ! Réagissez avec 🔥 et partagez son profil pour contribuer à faire découvrir son talent au plus grand nombre.",
+    "slug": "votez-toure-kerfala",
+    "photoUrl": "https://res.cloudinary.com/di21pnpda/image/upload/v1788338397/ajou_onezme.jpg",
+    "unitPrice": 150
   }
 ];
