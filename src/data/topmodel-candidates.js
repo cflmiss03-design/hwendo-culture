@@ -210,5 +210,16 @@ export const candidates = [
     "slug": "votez-toure-kerfala",
     "photoUrl": "https://res.cloudinary.com/di21pnpda/image/upload/v1788338397/ajou_onezme.jpg",
     "unitPrice": 150
+  },
+  {
+    "id": "6a99f4f1d1187b9b749227ac",
+    "orderNumber": 20,
+    "firstName": "Djekoria",
+    "secondName": " ",
+    "lastName": "KOUROUMA",
+    "text": "Âge : 18 ans\n\n✨ Passionnée par la mode et l'élégance depuis son plus jeune âge, Djekoria se distingue par son port de tête naturel, sa discipline et sa forte motivation. À travers la Nuit de l'Élégance Africaine, elle souhaite valoriser une beauté africaine plurielle, raconter l'Afrique d'aujourd'hui à travers la mode et montrer qu'il existe mille façons de célébrer l'élégance. Soutenez la candidate N°20 et accompagnez-la dans cette belle aventure.\n\n📣 Djekoria a besoin de vous ! Réagissez avec ❤️ et partagez son profil pour contribuer à faire rayonner son talent.",
+    "slug": "votez-kourima-djekoria",
+    "photoUrl": "https://res.cloudinary.com/di21pnpda/image/upload/v1788437355/1_xplapl.jpg",
+    "unitPrice": 150
   }
 ];
