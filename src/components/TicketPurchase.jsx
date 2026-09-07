@@ -1,21 +1,10 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { fetchAPI } from "../services/api.js";
 import { getVotingPeriod } from "../services/votingPeriod.js";
 import TicketClaimForm from "./TicketClaimForm.jsx";
 
 const MAX_QUANTITY = 20;
 const STEP_LABELS = ["Ticket", "Quantité", "Coordonnées"];
-// Format attendu : XXXX-YYYY, ex. "DOSSOU-001" — nom en lettres majuscules
-// uniquement (aucun espace/point/tiret), 10 lettres maximum, puis un tiret et
-// 3 à 5 chiffres. La partie nom doit rester synchronisée avec MAX_NAME_LENGTH
-// et normalizeCode dans server-votes/src/utils/candidateCode.js.
-const CANDIDATE_CODE_MAX_NAME_LENGTH = 10;
-const CANDIDATE_CODE_MAX_NUMBER_LENGTH = 5;
-const CANDIDATE_CODE_REGEX = new RegExp(
-  `^[A-Z]{1,${CANDIDATE_CODE_MAX_NAME_LENGTH}}-\\d{3,${CANDIDATE_CODE_MAX_NUMBER_LENGTH}}$`
-);
-const CANDIDATE_CODE_EXAMPLE = "XXXX-YYYY";
-const CODE_CHECK_DEBOUNCE_MS = 500;
 
 function StepBadge({ n, active }) {
   return (
@@ -94,6 +83,13 @@ export default function TicketPurchase() {
   const [loadingTypes, setLoadingTypes] = useState(true);
   const [loadError, setLoadError] = useState(null);
 
+  // Liste déroulante des candidates pour l'attribution optionnelle (voir
+  // ticket.controller.js#purchaseTicket) — remplace l'ancienne saisie
+  // manuelle d'un code. Chargement best-effort : une erreur laisse juste la
+  // liste vide (le champ "candidate" devient alors invisible), sans jamais
+  // bloquer l'achat.
+  const [candidates, setCandidates] = useState([]);
+
   const [step, setStep] = useState(1);
   const [maxReached, setMaxReached] = useState(1);
   const [selectedTypeId, setSelectedTypeId] = useState(null);
@@ -104,7 +100,7 @@ export default function TicketPurchase() {
     telephone: "",
     pays: "",
     ville: "",
-    candidateCode: "",
+    candidateId: "",
   });
   const [submitting, setSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState(null);
@@ -124,16 +120,6 @@ export default function TicketPurchase() {
   const [otpCode, setOtpCode] = useState("");
   const [operatorError, setOperatorError] = useState(null);
 
-  // Vérification en direct du code candidate : "idle" | "invalid-format" |
-  // "checking" | "found" | "not-found"
-  const [codeStatus, setCodeStatus] = useState("idle");
-  const [codeCandidateName, setCodeCandidateName] = useState(null);
-  const codeRequestIdRef = useRef(0);
-  // Mémorise les codes déjà vérifiés (code → { valid, candidateName? }) pour
-  // ne jamais re-solliciter le serveur pour un code identique déjà résolu
-  // dans cette session (ex: l'utilisateur efface puis retape le même code).
-  const codeCacheRef = useRef(new Map());
-
   useEffect(() => {
     // Best-effort : en cas d'échec réseau, on suppose activé plutôt que de
     // bloquer indéfiniment un événement qui vend réellement des tickets.
@@ -146,6 +132,12 @@ export default function TicketPurchase() {
       .catch((err) => setLoadError(err.message))
       .finally(() => setLoadingTypes(false));
 
+    // Best-effort : la liste déroulante d'attribution reste juste absente si
+    // cet appel échoue, ça ne bloque jamais l'achat.
+    fetchAPI("/candidates")
+      .then((data) => setCandidates(Array.isArray(data) ? data : []))
+      .catch(() => {});
+
     // Best-effort : l'achat reste possible en mode Local si cet appel échoue.
     fetchAPI("/payments/countries")
       .then((data) => {
@@ -154,59 +146,6 @@ export default function TicketPurchase() {
       })
       .catch(() => {});
   }, []);
-
-  // Étape 1, cliente : le format doit être complet (XXXX-YYYY) avant même de
-  // solliciter le serveur — la saisie est déjà filtrée par
-  // handleCandidateCodeChange, donc un format incomplet ici veut juste dire
-  // "l'utilisateur n'a pas fini de taper", pas "caractère invalide".
-  // Étape 2, serveur : le code complet correspond-il à une candidate ?
-  useEffect(() => {
-    const code = form.candidateCode.trim();
-
-    if (!code) {
-      setCodeStatus("idle");
-      setCodeCandidateName(null);
-      return;
-    }
-
-    if (!CANDIDATE_CODE_REGEX.test(code)) {
-      setCodeStatus("incomplete");
-      setCodeCandidateName(null);
-      return;
-    }
-
-    const cached = codeCacheRef.current.get(code);
-    if (cached) {
-      setCodeStatus(cached.valid ? "found" : "not-found");
-      setCodeCandidateName(cached.valid ? cached.candidateName : null);
-      return; // déjà vérifié dans cette session, aucune requête envoyée
-    }
-
-    setCodeStatus("checking");
-    const requestId = ++codeRequestIdRef.current;
-
-    const timeout = setTimeout(async () => {
-      try {
-        const data = await fetchAPI(`/tickets/candidate-code/${encodeURIComponent(code)}`);
-        codeCacheRef.current.set(code, data);
-        if (codeRequestIdRef.current !== requestId) return; // réponse obsolète, ignorée
-        if (data.valid) {
-          setCodeStatus("found");
-          setCodeCandidateName(data.candidateName);
-        } else {
-          setCodeStatus("not-found");
-          setCodeCandidateName(null);
-        }
-      } catch {
-        if (codeRequestIdRef.current !== requestId) return;
-        // Échec réseau : on n'affiche rien de bloquant, l'achat reste possible.
-        setCodeStatus("idle");
-        setCodeCandidateName(null);
-      }
-    }, CODE_CHECK_DEBOUNCE_MS);
-
-    return () => clearTimeout(timeout);
-  }, [form.candidateCode]);
 
   const selectedType = ticketTypes.find((t) => t._id === selectedTypeId) || null;
   const total = selectedType ? selectedType.prix * quantity : 0;
@@ -227,31 +166,6 @@ export default function TicketPurchase() {
   function handleChange(e) {
     const { name, value } = e.target;
     setForm((prev) => ({ ...prev, [name]: value }));
-  }
-
-  // Filtre la saisie du code candidate au fil de la frappe plutôt que de
-  // simplement rejeter après coup : majuscules forcées, uniquement des
-  // lettres pour le nom (10 max), uniquement des chiffres après le tiret.
-  function handleCandidateCodeChange(e) {
-    const raw = e.target.value.toUpperCase();
-    const dashIndex = raw.indexOf("-");
-
-    if (dashIndex === -1) {
-      const namePart = raw.replace(/[^A-Z]/g, "").slice(0, CANDIDATE_CODE_MAX_NAME_LENGTH);
-      setForm((prev) => ({ ...prev, candidateCode: namePart }));
-      return;
-    }
-
-    const namePart = raw
-      .slice(0, dashIndex)
-      .replace(/[^A-Z]/g, "")
-      .slice(0, CANDIDATE_CODE_MAX_NAME_LENGTH);
-    const numberPart = raw
-      .slice(dashIndex + 1)
-      .replace(/[^0-9]/g, "")
-      .slice(0, CANDIDATE_CODE_MAX_NUMBER_LENGTH);
-
-    setForm((prev) => ({ ...prev, candidateCode: `${namePart}-${numberPart}` }));
   }
 
   function changeQuantity(delta) {
@@ -280,7 +194,7 @@ export default function TicketPurchase() {
             pays: form.pays || undefined,
             ville: form.ville || undefined,
           },
-          candidateCode: form.candidateCode || undefined,
+          candidateId: form.candidateId || undefined,
           quantity,
           ...extra,
         }),
@@ -627,59 +541,33 @@ export default function TicketPurchase() {
             </div>
           </div>
 
-          <div className="rounded-xl bg-gradient-to-r from-primary-50 to-secondary-50 border border-primary-200/60 p-4">
-            <label className="block text-sm font-semibold text-slate-700 mb-1">
-              🎗️ Code d'une candidate (optionnel)
-            </label>
-            <div className="relative w-full sm:w-64">
-              <input
-                name="candidateCode"
-                value={form.candidateCode}
-                onChange={handleCandidateCodeChange}
-                placeholder={`Ex : ${CANDIDATE_CODE_EXAMPLE}`}
-                autoComplete="off"
-                spellCheck="false"
-                maxLength={CANDIDATE_CODE_MAX_NAME_LENGTH + 1 + CANDIDATE_CODE_MAX_NUMBER_LENGTH}
-                className={`w-full rounded-lg border px-4 py-2.5 pr-9 outline-none bg-white transition-colors focus:ring-2 ${
-                  codeStatus === "found"
-                    ? "border-success-500 focus:ring-success-50"
-                    : codeStatus === "not-found"
-                    ? "border-danger-500 focus:ring-danger-50"
-                    : "border-gray-300 focus:ring-primary-500"
-                }`}
-              />
-              <span className="absolute right-3 top-1/2 -translate-y-1/2 text-sm">
-                {codeStatus === "checking" && (
-                  <span className="inline-block w-4 h-4 border-2 border-primary-300 border-t-primary-600 rounded-full animate-spin" />
-                )}
-                {codeStatus === "found" && <span className="text-success-600">✓</span>}
-                {codeStatus === "not-found" && <span className="text-danger-500">✕</span>}
-              </span>
+          {candidates.length > 0 && (
+            <div className="rounded-xl bg-gradient-to-r from-primary-50 to-secondary-50 border border-primary-200/60 p-4">
+              <label className="block text-sm font-semibold text-slate-700 mb-1">
+                🎗️ Soutenir une candidate (optionnel)
+              </label>
+              <select
+                name="candidateId"
+                value={form.candidateId}
+                onChange={handleChange}
+                className="w-full sm:w-80 rounded-lg border border-gray-300 px-4 py-2.5 outline-none bg-white focus:ring-2 focus:ring-primary-500"
+              >
+                <option value="">— Aucune —</option>
+                {candidates
+                  .slice()
+                  .sort((a, b) => (a.orderNumber || 0) - (b.orderNumber || 0))
+                  .map((c) => (
+                    <option key={c._id} value={c._id}>
+                      #{c.orderNumber} — {c.lastName} {c.firstName}
+                    </option>
+                  ))}
+              </select>
+              <p className="text-xs text-slate-500 mt-1.5">
+                Choisissez une candidate pour que cet achat lui soit attribué. Laissez sur « Aucune » si vous n'en
+                soutenez pas une en particulier.
+              </p>
             </div>
-
-            {codeStatus === "found" && (
-              <p className="text-xs text-success-700 font-semibold mt-1.5">
-                ✓ Candidate trouvée : {codeCandidateName}
-              </p>
-            )}
-            {codeStatus === "not-found" && (
-              <p className="text-xs text-danger-600 mt-1.5">
-                Aucune candidate ne correspond à ce code. Votre achat continuera normalement, sans attribution.
-              </p>
-            )}
-            {codeStatus === "incomplete" && (
-              <p className="text-xs text-slate-500 mt-1.5">
-                Format attendu : {CANDIDATE_CODE_EXAMPLE} — {CANDIDATE_CODE_MAX_NAME_LENGTH} lettres majuscules
-                maximum, puis un tiret et les chiffres.
-              </p>
-            )}
-            {(codeStatus === "idle" || codeStatus === "checking") && (
-              <p className="text-xs text-slate-500 mt-1.5">
-                Soutenez une candidate en indiquant son code (ex : {CANDIDATE_CODE_EXAMPLE}). Laissez vide si vous
-                n'en avez pas.
-              </p>
-            )}
-          </div>
+          )}
 
           <div className="relative overflow-hidden rounded-2xl bg-gradient-to-r from-primary-600 via-primary-500 to-secondary-600 p-4 sm:p-5 shadow-lg flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 sm:gap-0">
             <div className="absolute right-0 top-0 h-24 w-24 rounded-full bg-white/10 blur-2xl" />
