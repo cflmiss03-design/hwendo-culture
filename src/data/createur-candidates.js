@@ -71,12 +71,23 @@ export const candidates = [
   {
     "id": "6a8e832581e707f53b6d0b20",
     "orderNumber": 7,
-    "firstName": "Morayo Mirabelle",
-    "secondName": " ",
+    "firstName": "Morayo ",
+    "secondName": " Mirabelle Ma Joie",
     "lastName": " ATTRA ",
     "text": "Âge : 21 ans\nOrigine : Bénin 🇧🇯\nProfession : Designer créatrice\nAmbition : Contribuer à la préservation et à la transmission du patrimoine culturel béninois à travers des créations modernes, créatives et porteuses de sens.\n\n✨ À 21 ans, Mirabelle considère la mode comme un puissant moyen d’expression et de transmission. Créative, audacieuse et passionnée, elle souhaite utiliser son talent pour contribuer à la préservation des traditions et à la valorisation du patrimoine culturel béninois. À travers le concours Jeune Créateur en Compétition, elle ambitionne de montrer qu’il est possible de faire vivre les richesses culturelles du Bénin à travers des créations modernes et inspirantes, tout en les rendant accessibles aux générations futures. Soutenez la candidate N°7 et accompagnez-la dans cette belle aventure.\n",
     "slug": "votez-morayo-mirabelle-attra",
     "photoUrl": "https://res.cloudinary.com/di21pnpda/image/upload/v1787720945/NO_xkyyl3.jpg",
+    "unitPrice": 150
+  },
+  {
+    "id": "6aa69c66f41e82b0234bcc23",
+    "orderNumber": 8,
+    "firstName": "Trésor",
+    "secondName": "B",
+    "lastName": "KLOBOE",
+    "text": "Âge : 22 ans\n\n✨ À 22 ans, Trésor considère la création comme un véritable moyen d’expression et de transmission. Passionné par la relève culturelle, il imagine et crée ses propres vêtements et accessoires pour raconter, à travers ses œuvres, des histoires inspirées du patrimoine africain. À travers le concours Jeune Créateur en Compétition, il souhaite faire dialoguer les traditions et la modernité, réinventer notre héritage avec créativité et montrer que la culture peut continuer à vivre et à évoluer à travers la création contemporaine. Pour Trésor, chaque œuvre est une manière de raconter l’Afrique, de valoriser ses racines et de faire voyager son histoire du passé vers le futur. \n\nSoutenez le candidat N°8 et accompagnez-le dans cette belle aventure.",
+    "slug": "votez-tresor-kloboe",
+    "photoUrl": "https://res.cloudinary.com/diongmuh8/image/upload/v1789304268/ong-site/cms/vsbfw3rrzokhxrnpimxn.jpg",
     "unitPrice": 150
   }
 ];
