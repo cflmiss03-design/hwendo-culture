@@ -1,0 +1,10 @@
+# Cloudflare Pages sert d'abord les fichiers statiques déjà générés au
+# build (ex: /jeune-createur/votez-tresor-kloboe.html s'il existe) — ces
+# règles ne s'appliquent QUE si aucun fichier ne correspond, c'est-à-dire un
+# candidat ajouté via l'admin après le dernier build. Statut 200 = réécriture
+# silencieuse (l'URL affichée au visiteur ne change pas), pas une vraie
+# redirection — voir src/components/CandidateFallback.jsx pour la suite :
+# le candidat est alors récupéré EN DIRECT depuis l'API, sans rebuild.
+/top-modele-afrique/*   /candidate-fallback   200
+/jeune-createur/*       /candidate-fallback   200
+/miss-endo-culture/*    /candidate-fallback   200

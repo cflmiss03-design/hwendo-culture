@@ -1,0 +1,23 @@
+---
+// Page "filet de secours", jamais visitée directement — voir
+// public/_redirects (réécriture silencieuse, statut 200) et
+// src/components/CandidateFallback.jsx pour la logique complète : sert un
+// candidat ajouté via l'admin après le dernier build, sans attendre un
+// rebuild du site. Un seul point d'entrée fixe pour les 3 catégories (la
+// catégorie/le slug réels sont lus dans l'URL d'origine côté client, que la
+// réécriture ne change pas).
+import CandidateFallback from "../components/CandidateFallback.jsx";
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout
+  title="Festival Hwendo Culture 2026"
+  description="Profil candidat — Festival Hwendo Culture 2026."
+  robots="noindex, follow"
+>
+  <main class="min-h-screen bg-gray-50 pt-6 sm:pt-10 pb-12">
+    <div class="mx-auto max-w-7xl">
+      <CandidateFallback client:load />
+    </div>
+  </main>
+</BaseLayout>
