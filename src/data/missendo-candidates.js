@@ -25,17 +25,6 @@ export const candidates = [
     "unitPrice": 150
   },
   {
-    "id": "6aa84861f41e82b0234be286",
-    "orderNumber": 3,
-    "firstName": " Delphine",
-    "secondName": " ",
-    "lastName": "OYENIRAN",
-    "text": "Valoriser les tenues et parures traditionnelles, transmettre l’histoire et les valeurs de sa communauté et contribuer à la préservation du patrimoine culturel.\n\nDelphine symbolise une élégance empreinte de simplicité et de tradition. À travers sa tenue en pagne traditionnel et son collier de perles rouges, elle met en valeur la beauté de nos tissus, de nos parures et de nos savoir-faire culturels. Au-delà de l’élégance, elle porte une volonté forte : contribuer à transmettre l’histoire, les valeurs et les traditions de sa communauté aux générations futures. À travers le concours Miss Endo-Culture, Delphine souhaite montrer que la culture constitue une richesse à connaître, à préserver et à transmettre avec fierté. Soutenez la candidate N°3 et accompagnez-la dans cette belle aventure.",
-    "slug": "votez-delphine-oyeniran",
-    "photoUrl": "https://res.cloudinary.com/diongmuh8/image/upload/v1789413425/ong-site/cms/f0lto01z2w4l0lqvxwta.jpg",
-    "unitPrice": 150
-  },
-  {
     "id": "6aa852e1f41e82b0234be694",
     "orderNumber": 4,
     "firstName": "Salamatou",
@@ -82,12 +71,12 @@ export const candidates = [
   {
     "id": "6aa858ccf41e82b0234be75c",
     "orderNumber": 8,
-    "firstName": "Ortense",
+    "firstName": " Chantalle Albertine",
     "secondName": " ",
-    "lastName": "SOHOUBO ",
-    "text": "Valoriser les traditions, les gestes et les savoir-faire ancestraux, et montrer que la culture se vit au quotidien et se transmet à travers les générations.\n\n✨ Ortense se distingue par son sourire, sa grâce et son attachement aux traditions. À travers sa tenue traditionnelle et le geste qu’elle esquisse avec sa calebasse, elle fait revivre des rituels et des savoir-faire hérités de nos ancêtres. Pour elle, la culture est une richesse vivante qui s’exprime dans les gestes, les pratiques et les habitudes du quotidien. À travers le concours Miss Endo-Culture, Ortense souhaite partager cette richesse avec le public et contribuer à montrer que notre patrimoine peut continuer à vivre, à évoluer et à se transmettre aux nouvelles générations. Soutenez la candidate N°8 et accompagnez-la dans cette belle aventure.",
+    "lastName": "HOUNKIN",
+    "text": "Valoriser les traditions et les savoir-faire de sa communauté, porter fièrement l’héritage de ses ancêtres et contribuer à sa transmission aux générations futures.\n\n✨ Chantalle incarne la douceur, l’authenticité et la fierté culturelle. Son sourire lumineux, sa tenue aux motifs traditionnels soigneusement nouée, son collier de perles colorées et son turban élégant témoignent de son profond attachement aux valeurs et aux savoir-faire de sa communauté. À travers le concours Miss Endo-Culture, elle souhaite porter haut l’héritage de ses ancêtres et montrer que les traditions constituent une richesse vivante qui mérite d’être connue, valorisée et transmise. Chantalle représente une jeunesse fière de ses racines et déterminée à faire vivre son patrimoine culturel avec élégance et authenticité. Soutenez la candidate N°8 et accompagnez-la dans cette belle aventure.",
     "slug": "votez-ortense-sohoubo",
-    "photoUrl": "https://res.cloudinary.com/diongmuh8/image/upload/v1789417642/ong-site/cms/fycdkfihswsfy3vazsww.jpg",
+    "photoUrl": "https://res.cloudinary.com/di21pnpda/image/upload/v1790066061/WhatsApp_Image_2026-09-22_at_09.23.35_cl5zmu.jpg",
     "unitPrice": 150
   },
   {
@@ -137,12 +126,12 @@ export const candidates = [
   {
     "id": "6aa86426f41e82b0234be7d9",
     "orderNumber": 13,
-    "firstName": " Pénielle",
+    "firstName": "Denise Lywaze Benie",
     "secondName": " ",
-    "lastName": "BOCO",
-    "text": "Valoriser l’artisanat, les savoir-faire ancestraux et les traditions de sa communauté, tout en encourageant la jeunesse à s’approprier son patrimoine culturel.\n\n✨ Pénielle incarne la richesse des savoir-faire ancestraux et la beauté d’une culture qui se transmet à travers les gestes et les créations. Sa tenue colorée, son collier de perles et le panier qu’elle porte témoignent de son lien profond avec l’artisanat et les traditions de sa communauté. À travers le concours Miss Endo-Culture, Pénielle souhaite mettre en lumière cette richesse culturelle et montrer que les objets, les techniques et les pratiques hérités de nos ancêtres constituent une part essentielle de notre identité. Elle souhaite également inspirer les jeunes à mieux connaître leurs racines, à s’approprier leur patrimoine et à contribuer à sa transmission. Soutenez la candidate N°13 et accompagnez-la dans cette belle aventure.",
+    "lastName": "BESSANH",
+    "text": "Valoriser les cultures endogènes, porter fièrement son identité culturelle et contribuer à la transmission et au rayonnement du patrimoine.\n\n✨ Denise incarne une élégance raffinée, une grande fierté culturelle et un profond attachement à ses racines. À travers sa tenue en pagne aux motifs dorés, ses colliers de perles et son port assuré, elle met en valeur la richesse esthétique et symbolique de nos cultures endogènes. Son élégance naturelle s’accompagne d’une volonté de faire vivre et de transmettre cet héritage aux générations futures. À travers le concours Miss Endo-Culture, Denise souhaite porter avec fierté les valeurs de son patrimoine et contribuer à faire découvrir sa richesse à un public plus large. Elle représente une jeunesse consciente de la valeur de ses racines et déterminée à les faire rayonner. Soutenez la candidate N°13 et accompagnez-la dans cette belle aventure.",
     "slug": "votez-penielle-boco",
-    "photoUrl": "https://res.cloudinary.com/diongmuh8/image/upload/v1789420552/ong-site/cms/wwpd63kerzdec7hnpafb.jpg",
+    "photoUrl": "https://res.cloudinary.com/di21pnpda/image/upload/v1790066060/WhatsApp_Image_2026-09-22_at_09.23.09_ku2ebn.jpg",
     "unitPrice": 150
   },
   {
