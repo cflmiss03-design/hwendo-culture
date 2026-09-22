@@ -75,7 +75,7 @@ export const candidates = [
     "secondName": " ",
     "lastName": "HOUNKIN",
     "text": "Valoriser les traditions et les savoir-faire de sa communauté, porter fièrement l’héritage de ses ancêtres et contribuer à sa transmission aux générations futures.\n\n✨ Chantalle incarne la douceur, l’authenticité et la fierté culturelle. Son sourire lumineux, sa tenue aux motifs traditionnels soigneusement nouée, son collier de perles colorées et son turban élégant témoignent de son profond attachement aux valeurs et aux savoir-faire de sa communauté. À travers le concours Miss Endo-Culture, elle souhaite porter haut l’héritage de ses ancêtres et montrer que les traditions constituent une richesse vivante qui mérite d’être connue, valorisée et transmise. Chantalle représente une jeunesse fière de ses racines et déterminée à faire vivre son patrimoine culturel avec élégance et authenticité. Soutenez la candidate N°8 et accompagnez-la dans cette belle aventure.",
-    "slug": "votez-ortense-sohoubo",
+    "slug": "votez-chantalle-albertine-hounkin",
     "photoUrl": "https://res.cloudinary.com/di21pnpda/image/upload/v1790066061/WhatsApp_Image_2026-09-22_at_09.23.35_cl5zmu.jpg",
     "unitPrice": 150
   },
@@ -130,7 +130,7 @@ export const candidates = [
     "secondName": " ",
     "lastName": "BESSANH",
     "text": "Valoriser les cultures endogènes, porter fièrement son identité culturelle et contribuer à la transmission et au rayonnement du patrimoine.\n\n✨ Denise incarne une élégance raffinée, une grande fierté culturelle et un profond attachement à ses racines. À travers sa tenue en pagne aux motifs dorés, ses colliers de perles et son port assuré, elle met en valeur la richesse esthétique et symbolique de nos cultures endogènes. Son élégance naturelle s’accompagne d’une volonté de faire vivre et de transmettre cet héritage aux générations futures. À travers le concours Miss Endo-Culture, Denise souhaite porter avec fierté les valeurs de son patrimoine et contribuer à faire découvrir sa richesse à un public plus large. Elle représente une jeunesse consciente de la valeur de ses racines et déterminée à les faire rayonner. Soutenez la candidate N°13 et accompagnez-la dans cette belle aventure.",
-    "slug": "votez-penielle-boco",
+    "slug": "votez-denise-lywaze-benie-bessanh",
     "photoUrl": "https://res.cloudinary.com/di21pnpda/image/upload/v1790066060/WhatsApp_Image_2026-09-22_at_09.23.09_ku2ebn.jpg",
     "unitPrice": 150
   },
